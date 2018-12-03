@@ -44,7 +44,7 @@ public class ManagerDriver {
 		String selection = in.nextLine();
 
 		if (selection.equals(managerPass)) {
-			System.out.println("Login successful.");
+			System.out.println("Login successful." + "\n");
 		} else {
 			System.out.println("Incorrect password.");
 			checkManagerPassword();
