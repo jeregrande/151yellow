@@ -1,16 +1,14 @@
 package login;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class login {
 	
 	static char loginType;
-	static account guestOne = new account("user", "pass","Tester");
-	static String guestUsername = guestOne.getUsername();
-	static String guestPassword = guestOne.getPassword();
-	static String guestName = guestOne.getName();
+	ArrayList<account>accounts = new ArrayList<account>();
 
-	public static void selectLogin()
+	public  void selectLogin()
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("[G]uest or [M]anager");
@@ -19,6 +17,22 @@ public class login {
 		if (selection.equals("g")) 
 		{
 			loginType = 'g';
+			System.out.println("[S]ignup or [L]ogin");
+			String input = in.nextLine();
+			if(input.equals("s"))
+			{
+				signup();
+			}
+			else if(input.equals("l"))
+			{
+				checkGuestUsername();
+			}
+			else
+			{
+				System.out.println("Please enter either s or l . ");
+				selectLogin();
+			}
+			
 		}
 		else if (selection.equals("m"))
 		{
@@ -32,41 +46,39 @@ public class login {
 		}
 	}
 
-	public static void checkGuestUsername() 
+	public  void checkGuestUsername() 
 	{
 		Scanner in = new Scanner(System.in);
-		System.out.println("Please input username");
-		String selection = in.nextLine();
+		System.out.println("Please input username.");
+		String usernameInput = in.nextLine();
+		for(int i=0; i < accounts.size(); i++)
+		{
+			if(accounts.get(i).getUsername().equals(usernameInput) )
+			{
+				checkGuestPassword(i);
+			}
+		}
+		System.out.println("Wrong user");
+		checkGuestUsername();
+	}
 
-		if (selection.equals(guestUsername))
+	public void checkGuestPassword(int i)
+	{
+		Scanner in = new Scanner(System.in);
+		System.out.println("Please enter password.");
+		String passwordInput = in.next();
+		if(accounts.get(i).getPassword().equals(passwordInput))
 		{
-			System.out.println("Welcome back " + guestName+ "!");
-		} 
-		else 
+			loadGuestMenu();
+		}
+		else
 		{
-			System.out.println("Invalid username");
+			System.out.println("Wrong password");
 			checkGuestUsername();
 		}
 	}
 
-	public static void checkGuestPassword() 
-	{
-		Scanner in = new Scanner(System.in);
-		System.out.println("Please input your password " + guestName + ".");
-		String selection = in.nextLine();
-
-		if (selection.equals(guestPassword))
-		{
-			System.out.println("Login successful.");
-		} 
-		else 
-		{
-			System.out.println("Incorrect password.");
-			checkGuestPassword();
-		}
-	}
-
-	public static void loadGuestMenu() 
+	public  void loadGuestMenu() 
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("[M]ake a reservation or [V]iew reservation or [Q]uit.");
@@ -93,7 +105,7 @@ public class login {
 		}
 	}
 
-	public static void makeReservation() 
+	public  void makeReservation() 
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("Select Room Type: [P]remium ($300) or [S]tandard ($100)");
@@ -120,7 +132,7 @@ public class login {
 		}
 	}
 
-	public static void chooseDateP()
+	public void chooseDateP()
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("Please Select Month (1-12)");
@@ -202,7 +214,7 @@ public class login {
 		
 	}
 	
-	public static void chooseDateS()
+	public  void chooseDateS()
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("Please Select Month (1-12)");
@@ -284,7 +296,7 @@ public class login {
 		
 	}
 	
-	public static void chooseDateConfirm()
+	public  void chooseDateConfirm()
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("[M]ake another reservation, [R]eturn to menu, [Q]uit");
@@ -308,15 +320,46 @@ public class login {
 		}
 	}
 	
+	public  void signup()
+	{
+		Scanner in = new Scanner(System.in);
+		System.out.println("Please input username.");
+		String input = in.nextLine();
+		for(int i = 0; i < accounts.size(); i++)
+		{
+			if(accounts.get(i).getUsername().equals(input))
+			{
+				System.out.println("Username already taken.");
+				signup();
+			}
+		}
+		System.out.println("Please input password.");
+		String input1 = in.nextLine();
+		System.out.println("Please input password again.");
+		String input2 = in.nextLine();
+		if(input1.equals(input2))
+		{
+			System.out.println("Please input name.");
+			String input3 = in.nextLine();
+			account newAccount = new account(input, input1, input3);
+			accounts.add(newAccount);
+			System.out.println("Account has been created.");
+			selectLogin();
+		}
+		else
+		{
+			System.out.println("Password does not match. Please try again.");
+			signup();
+		}
+	}
+	
 	public static void main(String[] args) {
 		boolean quit = true;
 
 		while (quit) 
 		{
-			selectLogin();
-			checkGuestUsername();
-			checkGuestPassword();
-			loadGuestMenu();
+			login log = new login();
+			log.selectLogin();
 			quit = false; 
 		}
 		System.out.println("Thank You and Have a Nice Day!");
