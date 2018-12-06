@@ -1,11 +1,17 @@
 package login;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class login {
-	
+
 	static char loginType;
+	private String startDate;
+	private String endDate;
 	ArrayList<account>accounts = new ArrayList<account>();
 
 	public  void selectLogin()
@@ -87,15 +93,21 @@ public class login {
 		if (selection.equals("m")) 
 		{
 			System.out.println("[M] chosen.");
-			makeReservation();
+			try {
+				makeReservation();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (selection.equals("v")) 
 		{
 			System.out.println("[V] chosen.");
-			loadGuestMenu();
+			viewReservation();
 		}
 		else if (selection.equals("q")) 
 		{
+			System.out.println("something");
 			return;
 		}
 		else
@@ -105,243 +117,93 @@ public class login {
 		}
 	}
 
-	public  void makeReservation() 
+	public void makeReservation() throws ParseException //split into 2 methods
 	{
 		Scanner in = new Scanner(System.in);
-		System.out.println("Select Room Type: [P]remium ($300) or [S]tandard ($100)");
-		System.out.println("[C]anel");
-		String selection = in.nextLine();
-		if (selection.equals("p"))
-		{
-			System.out.println("Premium Selected");
-			chooseDateP();
-		} 
-		else if (selection.equals("s"))
-		{
-			System.out.println("Standard Selected");
-			chooseDateS();
-		} 
-		else if (selection.equals("c"))
-		{
-			loadGuestMenu();
-		} 
-		else 
-		{
-			System.out.println("Please select a valid option.");
-			makeReservation();
+		System.out.println("Input Start Date");
+		String input = in.nextLine();
+		System.out.println("Input End Date");
+		String input1 = in.nextLine();
+		try {
+			setReservationPeriod(input, input1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		System.out.println("Select room number from 1 to 20. 1 to 10 are Premium ($300) and 11 to 20 are Standard ($100)");
+		int number = in.nextInt();
+		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
+		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDate);
+		Room room = new Room(number, sDate, eDate, 0, false);
+		if(number >= 1 && number <= 10)
+		{
+			room.setRoomType(0);
+		}
+		else if(number >= 11 && number <= 20)
+		{
+			room.setRoomType(1);
+		}
+		else {
+			{
+				System.out.println("Please input a number from 1 to 20");
+				makeReservation();
+			}
+		}
+		
+		loadGuestMenu();
 	}
-
-	public void chooseDateP()
+	
+	public void viewReservation()
 	{
-		Scanner in = new Scanner(System.in);
-		System.out.println("Please Select Month (1-12)");
-		int selection = in.nextInt();
-		if(selection < 13 && selection > 0)
-		{
-			System.out.println("You have selected "+ selection+".");
-			System.out.println("Please input year!");
-			int input = in.nextInt();
-			if(selection == 2 )
-			{
-				if(input % 4 == 0 && input%100 != 0)
-				{
-					System.out.println("Leap Year! Please input a number from 1-29");
-					int date = in.nextInt();
-					if(date < 30 && date > 0)
-					{
-						System.out.println("You have selected Premium room for " + selection + "/"+ date + "/" + input +"!");
-						chooseDateConfirm();
-					}
-					else
-					{
-						System.out.println("Please Select a number from 1 to 29");
-						chooseDateP();
-					}
-				}
-				else
-				{
-					System.out.println("Please input a number from 1-28");
-					int date = in.nextInt();
-					if(date < 29 && date > 0)
-					{
-						System.out.println("You have selected Premium room for " + selection + "/"+ date + "/" + input +"!");
-						chooseDateConfirm();
-					}
-					else
-					{
-						System.out.println("Please select a number from 1 to 28");
-						chooseDateP();
-					}
-				}
-			}
-			else if(selection == 1 ||selection == 3 ||selection == 5 ||selection == 7 ||selection == 8 ||selection == 10 ||selection == 12)
-			{
-				System.out.println("Please input a number from 1-31");
-				int date = in.nextInt();
-				if(date < 32 && date > 0)
-				{
-					System.out.println("You have selected Premium room for " + selection + "/"+ date + "/" + input +"!");
-					chooseDateConfirm();
-				}
-				else
-				{
-					System.out.println("Please select a number from 1 to 31");
-					chooseDateP();
-				}					
-			}
-			else if(selection == 4 ||selection == 6 ||selection == 9 ||selection == 11)
-			{
-				System.out.println("Please input a number from 1-30");
-				int date = in.nextInt();
-				if(date < 31 && date > 0)
-				{
-					System.out.println("You have selected Premium room for " + selection + "/"+ date + "/" + input +"!");
-					chooseDateConfirm();
-				}
-				else
-				{
-					System.out.println("Please select a number from 1 to 30");
-					chooseDateP();
-				}
-			}
-		}
-		else
-		{
-			System.out.println("Please input a number from 1 to 12");
-			chooseDateP();
-		}
+		System.out.println(getReservationPeriod());
+		
+		loadGuestMenu();
+	}
+	
+	public void setReservationPeriod(String startDate, String endDate) throws Exception{
+		this.startDate = startDate;
+		this.endDate = endDate;
+		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
+		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDate);
+		System.out.println(getTotalDays(sDate, eDate));
 		
 	}
 	
-	public  void chooseDateS()
-	{
-		Scanner in = new Scanner(System.in);
-		System.out.println("Please Select Month (1-12)");
-		int selection = in.nextInt();
-		if(selection < 13 && selection > 0)
-		{
-			System.out.println("You have selected "+ selection+".");
-			System.out.println("Please input year!");
-			int input = in.nextInt();
-			if(selection == 2 )
-			{
-				if(input % 4 == 0 && input%100 != 0)
-				{
-					System.out.println("Leap Year! Please input a number from 1-29");
-					int date = in.nextInt();
-					if(date < 30 && date > 0)
-					{
-						System.out.println("You have selected Standard room for " + selection + "/"+ date + "/" + input +"!");
-						chooseDateConfirm();
-					}
-					else
-					{
-						System.out.println("Please Select a number from 1 to 29");
-						chooseDateS();
-					}
-				}
-				else
-				{
-					System.out.println("Please input a number from 1-28");
-					int date = in.nextInt();
-					if(date < 29 && date > 0)
-					{
-						System.out.println("You have selected Standard room for " + selection + "/"+ date + "/" + input +"!");
-						chooseDateConfirm();
-					}
-					else
-					{
-						System.out.println("Please select a number from 1 to 28");
-						chooseDateS();
-					}
-				}
-			}
-			else if(selection == 1 ||selection == 3 ||selection == 5 ||selection == 7 ||selection == 8 ||selection == 10 ||selection == 12)
-			{
-				System.out.println("Please input a number from 1-31");
-				int date = in.nextInt();
-				if(date < 32 && date > 0)
-				{
-					System.out.println("You have selected Standard room for " + selection + "/"+ date + "/" + input +"!");
-					chooseDateConfirm();
-				}
-				else
-				{
-					System.out.println("Please select a number from 1 to 31");
-					chooseDateS();
-				}					
-			}
-			else if(selection == 4 ||selection == 6 ||selection == 9 ||selection == 11)
-			{
-				System.out.println("Please input a number from 1-30");
-				int date = in.nextInt();
-				if(date < 31 && date > 0)
-				{
-					System.out.println("You have selected Standard room for " + selection + "/"+ date + "/" + input +"!");
-					chooseDateConfirm();
-				}
-				else
-				{
-					System.out.println("Please select a number from 1 to 30");
-					chooseDateS();
-				}
-			}
-		}
-		else
-		{
-			System.out.println("Please input a number from 1 to 12");
-			chooseDateS();
-		}
-		
+	public static long getTotalDays(Date startDate, Date endDate){
+		long difference = endDate.getTime() - startDate.getTime();
+		System.out.println("Total Days Booked is ");
+		return  TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
 	}
 	
-	public  void chooseDateConfirm()
-	{
-		Scanner in = new Scanner(System.in);
-		System.out.println("[M]ake another reservation, [R]eturn to menu, [Q]uit");
-		String choice = in.nextLine();
-		if(choice.equals("m"))
-		{
-			makeReservation();
-		}
-		else if(choice.equals("r"))
-		{
-			loadGuestMenu();
-		}
-		else if(choice.equals("q"))
-		{
-			return;
-		}
-		else
-		{
-			System.out.println("Please select m , r , or q");
-			chooseDateConfirm();
-		}
+	public String getReservationPeriod(){
+		return "Start Date is " + startDate + ": End Date is " + endDate;
 	}
+	
 	
 	public  void signup()
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.println("Please input username.");
-		String input = in.nextLine();
+		String userID = in.nextLine();
 		for(int i = 0; i < accounts.size(); i++)
 		{
-			if(accounts.get(i).getUsername().equals(input))
+			if(accounts.get(i).getUsername().equals(userID))
 			{
 				System.out.println("Username already taken.");
 				signup();
 			}
 		}
 		System.out.println("Please input password.");
-		String input1 = in.nextLine();
+		String password = in.nextLine();
 		System.out.println("Please input password again.");
-		String input2 = in.nextLine();
-		if(input1.equals(input2))
+		String confirmPassword = in.nextLine();
+		if(password.equals(confirmPassword))
 		{
-			System.out.println("Please input name.");
-			String input3 = in.nextLine();
-			account newAccount = new account(input, input1, input3);
+			System.out.println("Please input first name.");
+			String inputFName = in.nextLine();
+			System.out.println("Please input last name.");
+			String inputLName = in.nextLine();
+			account newAccount = new account(userID, password, inputFName, inputLName);
 			accounts.add(newAccount);
 			System.out.println("Account has been created.");
 			selectLogin();
