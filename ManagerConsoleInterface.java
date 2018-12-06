@@ -3,7 +3,9 @@ package hotelReservationSystem;
 import java.util.*;
 
 /*
+ *
  * OBSOLETE; DO NOT WORK ON THIS.
+ *
  */
 
 public class ManagerConsoleInterface {
