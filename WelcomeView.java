@@ -5,18 +5,24 @@ import javax.swing.*;
 
 public class WelcomeView {
 
+	Manager theManager = new Manager("testUser", "testPass");
+	// private Database database;
+
+	// Constructor calls build class upon initialization
 	public WelcomeView() {
 		build();
 	}
 
+	// Build the page
 	private static void build() {
 		JFrame welcomePage = new JFrame();
 		JPanel panel = new JPanel();
 
 		JButton guestLoginButton = new JButton();
 		guestLoginButton.setText("Guest");
-		guestLoginButton.addActionListener(new ActionListener() {
 
+		// Guest button controller
+		guestLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Guest button clicked.");
 			}
@@ -24,12 +30,16 @@ public class WelcomeView {
 
 		JButton managerLoginButton = new JButton();
 		managerLoginButton.setText("Manager");
-		managerLoginButton.addActionListener(new ActionListener() {
 
+		// Manager button controller
+		managerLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Manager button clicked.");
-				SignupLoginView selectLoginPage = new SignupLoginView();
-				welcomePage.dispose();
+
+				// Create an instance of the page to navigate to (SignupLoginView in this case)
+				LoginView loginPage = new LoginView();
+
+				welcomePage.dispose(); // Close this current page
 			}
 		});
 

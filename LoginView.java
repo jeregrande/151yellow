@@ -1,10 +1,12 @@
 package hotelReservationSystem;
 
+import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class LoginView {
 
+	// private Database database;
 	static Manager theManager = new Manager("testUser", "testPass");
 	static String managerUser = theManager.getUsername();
 	static String managerPass = theManager.getPassword();
@@ -16,19 +18,20 @@ public class LoginView {
 	private static void build() {
 		JFrame loginPage = new JFrame();
 		JPanel panel = new JPanel();
+		JPanel loginButtonPanel = new JPanel();
 
 		loginPage.setSize(600, 450);
 		panel.setSize(600, 450);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new GridLayout(3, 2));
 
 		JTextField managerUserField = new JTextField();
 		JTextField managerPassField = new JTextField();
-		
-		JLabel usernameLabel = new JLabel();		
+
+		JLabel usernameLabel = new JLabel();
 		usernameLabel.setText("Enter Username:");
 		usernameLabel.setBounds(10, 10, 100, 100);
-		
-		JLabel passwordLabel = new JLabel();		
+
+		JLabel passwordLabel = new JLabel();
 		passwordLabel.setText("Enter Password:");
 		passwordLabel.setBounds(10, 10, 100, 100);
 
@@ -46,6 +49,8 @@ public class LoginView {
 					loginPage.dispose();
 				} else {
 					System.out.println("Incorrect login credentials.");
+					JOptionPane.showMessageDialog(new JFrame(), "Incorrect login credentials.", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
 					loginPage.dispose();
 					build();
 				}
@@ -56,6 +61,7 @@ public class LoginView {
 		panel.add(managerUserField);
 		panel.add(passwordLabel);
 		panel.add(managerPassField);
+		panel.add(loginButtonPanel);
 		panel.add(loginButton);
 
 		loginPage.getContentPane().add(panel);

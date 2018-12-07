@@ -25,6 +25,5 @@ public class Manager {
 	public void setPassword(String newPass) {
 		password = newPass;
 	}
-	
-	
+
 }

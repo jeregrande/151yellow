@@ -5,6 +5,8 @@ import javax.swing.*;
 
 public class ManagerMenuView {
 
+	// private Database database;
+
 	public ManagerMenuView() {
 		build();
 	}
@@ -19,18 +21,19 @@ public class ManagerMenuView {
 		JButton loadButton = new JButton();
 		loadButton.setText("Load Reservations");
 		loadButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Load clicked.");
+				//TODO: Load reservations from database.txt
 			}
 		});
 
 		JButton viewButton = new JButton();
 		viewButton.setText("View Reservations");
 		viewButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("View clicked.");
+				ManagerViewReservationsView managerViewReservationsPage = new ManagerViewReservationsView();
+				managerMenuPage.dispose();
 			}
 		});
 
@@ -40,6 +43,7 @@ public class ManagerMenuView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Save clicked.");
+				//TODO: Save reservations into database.txt
 			}
 		});
 

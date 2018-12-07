@@ -3,7 +3,13 @@ package hotelReservationSystem;
 import java.awt.event.*;
 import javax.swing.*;
 
+
+/*
+ * Will only be used by guest, manager will go straight to login from WelcomeView
+ */
 public class SignupLoginView {
+
+	// private Database database;
 
 	public SignupLoginView() {
 		build();
