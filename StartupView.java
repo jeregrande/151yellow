@@ -1,53 +1,58 @@
-package management;
+package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
 
-
 public class StartupView {
 
 	private Database database;
-	
+
+	// Constructor calls build class upon initialization
 	public StartupView(Database database) {
 		this.database = database;
 		build();
 	}
 
+	// Build the page
 	private void build() {
-		JFrame welcomePage = new JFrame();
+		JFrame startupPage = new JFrame();
 		JPanel panel = new JPanel();
 
 		JButton guestLoginButton = new JButton();
 		guestLoginButton.setText("Guest");
-		guestLoginButton.addActionListener(new ActionListener() {
 
+		// Guest button controller
+		guestLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Guest button clicked.");
 				GuestSignupLoginView selectLoginPage = new GuestSignupLoginView(database);
-				welcomePage.dispose();
+				startupPage.dispose();
 			}
 		});
 
 		JButton managerLoginButton = new JButton();
 		managerLoginButton.setText("Manager");
-		managerLoginButton.addActionListener(new ActionListener() {
 
+		// Manager button controller
+		managerLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Manager button clicked.");
-				SignupLoginView selectLoginPage = new SignupLoginView(database);
-				welcomePage.dispose();
-				
+
+				// Create an instance of the page to navigate to (SignupLoginView in this case)
+				ManagerLoginView managerLoginPage = new ManagerLoginView(database);
+
+				startupPage.dispose(); // Close this current page
 			}
 		});
 
 		panel.add(guestLoginButton);
 		panel.add(managerLoginButton);
 
-		welcomePage.getContentPane().add(panel);
-		welcomePage.setSize(500, 500);
-		welcomePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		welcomePage.pack();
-		welcomePage.setVisible(true);
+		startupPage.getContentPane().add(panel);
+		startupPage.setSize(500, 500);
+		startupPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		startupPage.pack();
+		startupPage.setVisible(true);
 	}
 
 	public static void main(String[] args) {

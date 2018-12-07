@@ -1,17 +1,21 @@
-package management;
+package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
 
+/*
+ * Will only be used by guest; manager will go straight to login
+ */
+
 public class SignupLoginView {
-	private  Database database;
+	private Database database;
 
 	public SignupLoginView(Database database) {
 		this.database = database;
 		build();
 	}
 
-	private  void build() {
+	private void build() {
 		JFrame signupLoginPage = new JFrame();
 		JPanel panel = new JPanel();
 
@@ -32,7 +36,7 @@ public class SignupLoginView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Login clicked.");
-				LoginView loginPage = new LoginView(database);
+				ManagerLoginView loginPage = new ManagerLoginView(database);
 				signupLoginPage.dispose();
 			}
 		});
@@ -51,7 +55,6 @@ public class SignupLoginView {
 	public static void main(String[] args) {
 		Database database = new Database();
 		SignupLoginView view = new SignupLoginView(database);
-		view.build();
 	}
 
 }

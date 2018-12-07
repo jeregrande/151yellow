@@ -1,19 +1,18 @@
-package management;
+package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
 
-
 public class GuestMenuView {
-	
+
 	private Database database;
-	
+
 	public GuestMenuView(Database database) {
 		this.database = database;
 		build();
 	}
 
-	private  void build() {
+	private void build() {
 		JFrame guestMenuPage = new JFrame();
 		JPanel panel = new JPanel();
 
@@ -75,10 +74,9 @@ public class GuestMenuView {
 		guestMenuPage.setVisible(true);
 	}
 
-	public  static void main(String[] args) {
+	public static void main(String[] args) {
 		Database database = new Database();
 		GuestMenuView view = new GuestMenuView(database);
-		view.build();
 	}
 
 }

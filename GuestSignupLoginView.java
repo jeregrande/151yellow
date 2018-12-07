@@ -1,17 +1,17 @@
-package management;
+package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
 
 public class GuestSignupLoginView {
-	private  Database database;
+	private Database database;
 
 	public GuestSignupLoginView(Database database) {
 		this.database = database;
 		build();
 	}
 
-	private  void build() {
+	private void build() {
 		JFrame signupLoginPage = new JFrame();
 		JPanel panel = new JPanel();
 
@@ -51,7 +51,6 @@ public class GuestSignupLoginView {
 	public static void main(String[] args) {
 		Database database = new Database();
 		GuestSignupLoginView view = new GuestSignupLoginView(database);
-		view.build();
 	}
 
 }

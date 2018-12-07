@@ -1,12 +1,12 @@
-package management;
+package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
 
 public class GuestLoginView {
-	
+
 	private Database database;
-	
+
 	public GuestLoginView(Database database) {
 		this.database = database;
 		build();
@@ -22,12 +22,12 @@ public class GuestLoginView {
 
 		JTextField guestUserField = new JTextField();
 		JTextField guestPassField = new JTextField();
-		
-		JLabel usernameLabel = new JLabel();		
+
+		JLabel usernameLabel = new JLabel();
 		usernameLabel.setText("Enter Username:");
 		usernameLabel.setBounds(10, 10, 100, 100);
-		
-		JLabel passwordLabel = new JLabel();		
+
+		JLabel passwordLabel = new JLabel();
 		passwordLabel.setText("Enter Password:");
 		passwordLabel.setBounds(10, 10, 100, 100);
 
@@ -40,13 +40,11 @@ public class GuestLoginView {
 				String inputUsername = guestUserField.getText();
 				String inputPass = guestPassField.getText();
 
-				if(database.checkLogin(inputUsername, inputPass) == true) {
+				if (database.checkLogin(inputUsername, inputPass) == true) {
 					GuestMenuView gMenuView = new GuestMenuView(database);
 					loginPage.dispose();
-				}
-				else {
-					JOptionPane.showMessageDialog(new JFrame(), "Username Taken", "Dialog",
-					        JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(new JFrame(), "Username Taken", "Dialog", JOptionPane.ERROR_MESSAGE);
 					loginPage.dispose();
 					build();
 				}
@@ -65,12 +63,6 @@ public class GuestLoginView {
 		loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginPage.pack();
 		loginPage.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Database database = new Database();
-		GuestLoginView view = new GuestLoginView(database);
-		view.build();
 	}
 
 }

@@ -1,4 +1,4 @@
-package management;
+package hotelReservationSystem;
 
 import java.awt.event.*;
 
@@ -7,8 +7,7 @@ import javax.swing.*;
 public class SignupView {
 
 	private Database database;
-	
-	
+
 	public SignupView(Database database) {
 		this.database = database;
 		build();
@@ -27,27 +26,26 @@ public class SignupView {
 		JTextField guestPassConfirmField = new JTextField();
 		JTextField guestFirstNameField = new JTextField();
 		JTextField guestLastNameField = new JTextField();
-		
-		JLabel usernameLabel = new JLabel();		
+
+		JLabel usernameLabel = new JLabel();
 		usernameLabel.setText("Enter Username:");
 		usernameLabel.setBounds(10, 10, 100, 100);
-		
-		JLabel passwordLabel = new JLabel();		
+
+		JLabel passwordLabel = new JLabel();
 		passwordLabel.setText("Enter Password:");
 		passwordLabel.setBounds(10, 10, 100, 100);
-		
-		JLabel passwordConfirmLabel = new JLabel();		
+
+		JLabel passwordConfirmLabel = new JLabel();
 		passwordConfirmLabel.setText("Enter Password Again:");
 		passwordConfirmLabel.setBounds(10, 10, 100, 100);
-		
+
 		JLabel firstNameLabel = new JLabel();
 		firstNameLabel.setText("Enter First Name:");
 		firstNameLabel.setBounds(10, 10, 100, 100);
-		
+
 		JLabel lastNameLabel = new JLabel();
 		lastNameLabel.setText("Enter Last Name:");
 		lastNameLabel.setBounds(10, 10, 100, 100);
-		
 
 		JButton loginButton = new JButton();
 		loginButton.setText("Signup");
@@ -60,35 +58,29 @@ public class SignupView {
 				String inputPassC = guestPassConfirmField.getText();
 				String inputFirst = guestFirstNameField.getText();
 				String inputLast = guestLastNameField.getText();
-				
-				
-				if(database.checkUsername(inputUsername) == true)
-				{
+
+				if (database.checkUsername(inputUsername) == true) {
 					System.out.println("Username already taken.");
-					JOptionPane.showMessageDialog(new JFrame(), "Username Taken", "Dialog",
-					        JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(), "Username Taken", "Dialog", JOptionPane.ERROR_MESSAGE);
 					signupPage.dispose();
 					build();
 				}
-				
-				if(inputPass.equals(inputPassC))
-				{
+
+				if (inputPass.equals(inputPassC)) {
 					Account a = new Account(inputUsername, inputPass, inputFirst, inputLast);
 					database.addAccounts(a);
 					JOptionPane.showMessageDialog(new JFrame(), "Account Created!", "Dialog",
-					        JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.INFORMATION_MESSAGE);
 					GuestLoginView gLogView = new GuestLoginView(database);
 					signupPage.dispose();
-				}
-				else {
+				} else {
 					System.out.println("Incorrect Password Input.");
 					JOptionPane.showMessageDialog(new JFrame(), "Password does not match!", "Dialog",
-					        JOptionPane.ERROR_MESSAGE);
+							JOptionPane.ERROR_MESSAGE);
 					signupPage.dispose();
 					build();
 				}
-				
-				
+
 			}
 		});
 
@@ -115,7 +107,6 @@ public class SignupView {
 	public static void main(String[] args) {
 		Database database = new Database();
 		SignupView view = new SignupView(database);
-		view.build();
 	}
 
 }

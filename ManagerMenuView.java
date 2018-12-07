@@ -3,50 +3,48 @@ package hotelReservationSystem;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ShowGuestReservationView {
+public class ManagerMenuView {
 
 	private Database database;
 
-	public ShowGuestReservationView(Database database) {
+	public ManagerMenuView(Database database) {
 		this.database = database;
 		build();
 	}
 
 	private void build() {
-		JFrame guestViewPage = new JFrame();
+		JFrame managerMenuPage = new JFrame();
 		JPanel panel = new JPanel();
 
 //		For a vertical menu
 //		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		JButton makeButton = new JButton();
-		makeButton.setText("Make Reservations");
-		makeButton.addActionListener(new ActionListener() {
-
+		JButton loadButton = new JButton();
+		loadButton.setText("Load Reservations");
+		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Make clicked.");
-				MakeReservationView reserveView = new MakeReservationView(database);
-				guestViewPage.dispose();
+				System.out.println("Load clicked.");
+				// TODO: Load reservations from database.txt
 			}
 		});
 
 		JButton viewButton = new JButton();
 		viewButton.setText("View Reservations");
 		viewButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("View clicked.");
+				ManagerViewReservationsView managerViewReservationsPage = new ManagerViewReservationsView(database);
+				managerMenuPage.dispose();
 			}
 		});
 
-		JButton logoutButton = new JButton();
-		logoutButton.setText("Logout");
-		logoutButton.addActionListener(new ActionListener() {
+		JButton saveButton = new JButton();
+		saveButton.setText("Save Reservations");
+		saveButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("logout clicked.");
-				StartupView welcomeView = new StartupView(database);
-				guestViewPage.dispose();
+				System.out.println("Save clicked.");
+				// TODO: Save reservations into database.txt
 			}
 		});
 
@@ -57,26 +55,26 @@ public class ShowGuestReservationView {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Quit clicked.");
 				System.out.println("--System Terminated--");
-				guestViewPage.dispose();
+				managerMenuPage.dispose();
 			}
 		});
 
-		panel.add(makeButton);
+		panel.add(loadButton);
 		panel.add(viewButton);
-		panel.add(logoutButton);
+		panel.add(saveButton);
 		panel.add(quitButton);
 
-		guestViewPage.getContentPane().add(panel);
+		managerMenuPage.getContentPane().add(panel);
 
-		guestViewPage.setSize(500, 500);
-		guestViewPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		guestViewPage.pack();
-		guestViewPage.setVisible(true);
+		managerMenuPage.setSize(500, 500);
+		managerMenuPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		managerMenuPage.pack();
+		managerMenuPage.setVisible(true);
 	}
 
 	public static void main(String[] args) {
 		Database database = new Database();
-		ShowGuestReservationView view = new ShowGuestReservationView(database);
+		ManagerMenuView view = new ManagerMenuView(database);
 	}
 
 }
