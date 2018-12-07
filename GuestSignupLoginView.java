@@ -21,7 +21,7 @@ public class GuestSignupLoginView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Signup clicked. This option will only be for guests.");
-				SignupView signupPage = new SignupView(database);
+				GuestSignupView signupPage = new GuestSignupView(database);
 				signupLoginPage.dispose();
 			}
 		});

@@ -2,6 +2,7 @@ package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.GridLayout;
 
 public class GuestLoginView {
 
@@ -15,10 +16,11 @@ public class GuestLoginView {
 	private void build() {
 		JFrame loginPage = new JFrame();
 		JPanel panel = new JPanel();
+		JPanel loginButtonPanel = new JPanel();
 
 		loginPage.setSize(600, 450);
 		panel.setSize(600, 450);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new GridLayout(3, 2));
 
 		JTextField guestUserField = new JTextField();
 		JTextField guestPassField = new JTextField();
@@ -44,7 +46,8 @@ public class GuestLoginView {
 					GuestMenuView gMenuView = new GuestMenuView(database);
 					loginPage.dispose();
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Username Taken", "Dialog", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(), "Invalid login credentials. Try again.", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
 					loginPage.dispose();
 					build();
 				}
@@ -55,6 +58,7 @@ public class GuestLoginView {
 		panel.add(guestUserField);
 		panel.add(passwordLabel);
 		panel.add(guestPassField);
+		panel.add(loginButtonPanel);
 		panel.add(loginButton);
 
 		loginPage.getContentPane().add(panel);

@@ -7,7 +7,7 @@ import javax.swing.*;
 public class ManagerLoginView {
 
 	private Database database;
-	static Manager theManager = new Manager("testUser", "testPass");
+	static Manager theManager = new Manager("mUser", "mPass");
 	static String managerUser = theManager.getUsername();
 	static String managerPass = theManager.getPassword();
 
@@ -17,6 +17,8 @@ public class ManagerLoginView {
 	}
 
 	private void build() {
+		System.out.println("Manager's username is: mUser");
+		System.out.println("Manager's password is: mPass");
 		JFrame managerLoginPage = new JFrame();
 		JPanel panel = new JPanel();
 		JPanel loginButtonPanel = new JPanel();

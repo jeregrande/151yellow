@@ -48,6 +48,17 @@ public class ManagerMenuView {
 			}
 		});
 
+		JButton logoutButton = new JButton();
+		logoutButton.setText("Logout");
+		logoutButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Logout clicked.");
+				HotelSystemDriver startupPage = new HotelSystemDriver(database);
+				managerMenuPage.dispose();
+			}
+		});
+
 		JButton quitButton = new JButton();
 		quitButton.setText("Quit");
 		quitButton.addActionListener(new ActionListener() {
@@ -62,6 +73,7 @@ public class ManagerMenuView {
 		panel.add(loadButton);
 		panel.add(viewButton);
 		panel.add(saveButton);
+		panel.add(logoutButton);
 		panel.add(quitButton);
 
 		managerMenuPage.getContentPane().add(panel);

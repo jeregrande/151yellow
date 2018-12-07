@@ -25,7 +25,7 @@ public class GuestMenuView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Make clicked.");
-				MakeReservationView reserveView = new MakeReservationView(database);
+				GuestMakeReservationView reserveView = new GuestMakeReservationView(database);
 				guestMenuPage.dispose();
 			}
 		});
