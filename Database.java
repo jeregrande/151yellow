@@ -63,6 +63,21 @@ public class Database {
 		return rooms;
 	}
 	
+	public boolean compareDay(String inputStartDate, String currentStartDate) throws ParseException{
+		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(inputStartDate);
+		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(currentStartDate);
+		if(eDate.getMonth() <= sDate.getMonth()) {
+			if(eDate.getDay() <= sDate.getDay()) {
+				if(eDate.getYear() <= sDate.getYear()) {
+					System.out.println("Passed");
+					return true;
+				}
+			}
+		}
+		System.out.println("Failed");
+		return false;
+	}
+	
 	public long getLength(String start, String end) throws ParseException {
 		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(start);
 		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(end);
@@ -79,21 +94,24 @@ public class Database {
 		java.util.List<Integer> openRooms = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20));
 		//ArrayList<Integer> openRooms = new ArrayList<>();
 		//int[] open = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+		System.out.println("this is before remove  "+ openRooms);
 		for(int i = 0; i < rooms.size(); i++) {
-				if(getLength(startDate, rooms.get(i).getStartDate()) >= getLength(startDate, endDate)){
+				if(compareDay(rooms.get(i).getStartDate(), startDate) == false){
 					/*for(int roomNumber : open) {
 						openRooms.add(roomNumber);
 					}
 					*/
 					return openRooms;
 				}
-				else if(getLength(startDate, rooms.get(i).getStartDate()) < getLength(startDate, endDate)) {
-					int currentRoom = rooms.get(i).getRoomNumber();
-					 openRooms.remove(currentRoom);
+				else if(compareDay(rooms.get(i).getStartDate(), startDate) == true) {
+					if(getLength( rooms.get(i).getStartDate(),startDate) < getLength(startDate, endDate)) {
+						int currentRoom = rooms.get(i).getRoomNumber();
+						 openRooms.remove(currentRoom);
+					}
 				}
 			
 		}
-		System.out.println("this");
+		System.out.println("This is after "+ openRooms);
 		return openRooms;
 	}
 }
