@@ -51,8 +51,8 @@ public class ManagerLoginView {
 					ManagerMenuView managerMenuPage = new ManagerMenuView(database);
 					managerLoginPage.dispose();
 				} else {
-					System.out.println("Incorrect login credentials.");
-					JOptionPane.showMessageDialog(new JFrame(), "Incorrect Inputs", "Dialog",
+					System.out.println("Invalid login credentials.");
+					JOptionPane.showMessageDialog(new JFrame(), "Invalid login credentials.", "Dialog",
 							JOptionPane.ERROR_MESSAGE);
 					managerLoginPage.dispose();
 					build();
