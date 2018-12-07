@@ -45,7 +45,7 @@ public class GuestMenuView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("logout clicked.");
-				StartupView welcomeView = new StartupView(database);
+				HotelSystemDriver startupPage = new HotelSystemDriver(database);
 				guestMenuPage.dispose();
 			}
 		});
