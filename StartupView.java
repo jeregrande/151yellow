@@ -58,6 +58,5 @@ public class StartupView {
 	public static void main(String[] args) {
 		Database database = new Database();
 		StartupView view = new StartupView(database);
-		view.build();
 	}
 }
