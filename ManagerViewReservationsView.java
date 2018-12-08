@@ -3,11 +3,11 @@ package hotelReservationSystem;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 public class ManagerViewReservationsView {
 
 	private Database database;
-	private static int roomSelected; // Tentative
 
 	public ManagerViewReservationsView(Database database) {
 		this.database = database;
@@ -23,15 +23,19 @@ public class ManagerViewReservationsView {
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(1, 1));
 
-		JButton loadButton = new JButton();
-		loadButton.setText("By Day Controller");
+		JButton dayViewControllerFiller = new JButton();
+		dayViewControllerFiller.setText("By Day Controller");
 
-		JTextArea dayViewArea = new JTextArea();
-		dayViewArea.setText("Day information will be displayed here.");
+		// Views
+		JTextArea dayViewDisplay = new JTextArea(); // Day view
+		dayViewDisplay.setEditable(false);
+		dayViewDisplay.setSize(600, 400);
+		dayViewDisplay.setText("Day information will be displayed here.");
 
-		// Room view
-		JTextArea roomViewArea = new JTextArea();
-		roomViewArea.setText("Room information will be displayed here.");
+		JTextArea roomViewDisplay = new JTextArea(); // Room view
+		roomViewDisplay.setEditable(false);
+		roomViewDisplay.setSize(600, 400);
+		roomViewDisplay.setText("Room information will be displayed here.");
 
 		// Room view controller's elements
 		JPanel roomViewPanel = new JPanel();
@@ -101,141 +105,260 @@ public class ManagerViewReservationsView {
 		room1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 1 clicked.");
-				roomSelected = 1;
-				// TODO: Update room view
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(1);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 2 clicked.");
-				roomSelected = 2;
+				
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(2);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 3 clicked.");
-				roomSelected = 3;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(3);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 4 clicked.");
-				roomSelected = 4;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(4);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 5 clicked.");
-				roomSelected = 5;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(5);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 6 clicked.");
-				roomSelected = 6;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(6);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 7 clicked.");
-				roomSelected = 7;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(7);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 8 clicked.");
-				roomSelected = 8;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(8);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 9 clicked.");
-				roomSelected = 9;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(9);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 10 clicked.");
-				roomSelected = 10;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(10);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 11 clicked.");
-				roomSelected = 11;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(11);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 12 clicked.");
-				roomSelected = 12;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(12);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 13 clicked.");
-				roomSelected = 13;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(13);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 14 clicked.");
-				roomSelected = 14;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(14);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room15.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 15 clicked.");
-				roomSelected = 15;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(15);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room16.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 16 clicked.");
-				roomSelected = 16;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(16);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room17.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 17 clicked.");
-				roomSelected = 17;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(17);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room18.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 18 clicked.");
-				roomSelected = 18;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(18);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room19.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 19 clicked.");
-				roomSelected = 19;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(19);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
 		room20.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Room 20 clicked.");
-				roomSelected = 20;
+
+				String reservationEntries = "";
+				ArrayList<String> entries = database.getRoomReservations(20);
+				for(String s: entries) {
+					reservationEntries += s + "\n";
+				}
+				roomViewDisplay.setText(reservationEntries);
 			}
 		});
 
@@ -249,10 +372,10 @@ public class ManagerViewReservationsView {
 			}
 		});
 
-		panel.add(loadButton);
-		panel.add(dayViewArea);
+		panel.add(dayViewControllerFiller);
+		panel.add(dayViewDisplay);
 		panel.add(roomViewPanel);
-		panel.add(roomViewArea);
+		panel.add(roomViewDisplay);
 
 		bottomPanel.add(bottomButton);
 
