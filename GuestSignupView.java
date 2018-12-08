@@ -67,7 +67,7 @@ public class GuestSignupView {
 					build();
 				}
 
-				if (inputPass.equals(inputPassC)) {
+				else if (inputPass.equals(inputPassC)) {
 					Account a = new Account(inputUsername, inputPass, inputFirst, inputLast);
 					database.addAccounts(a);
 					JOptionPane.showMessageDialog(new JFrame(), "Account Created!", "Dialog",
