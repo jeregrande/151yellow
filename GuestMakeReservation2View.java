@@ -57,12 +57,12 @@ public class GuestMakeReservation2View {
 						if (i >= 1 && i <= 10) {
 							Room newRoom = new Room(i, 0, startDate, endDate);
 							int roomIndex = database.addRooms(newRoom);
-							database.saveReserverationRecord(ID , roomIndex);
+							database.saveReservationRecord(ID , roomIndex);
 							error = false;
 						} else {
 							Room newRoom = new Room(i, 1, startDate, endDate);
 							int roomIndex = database.addRooms(newRoom);
-							database.saveReserverationRecord(ID, roomIndex);
+							database.saveReservationRecord(ID, roomIndex);
 							error = false;
 						}
 					}
@@ -72,9 +72,11 @@ public class GuestMakeReservation2View {
 						makeReservationPage.dispose();
 						build();
 				}
-				GuestMenuView gMenuView = new GuestMenuView(database,ID);
+				else {
+					GuestMenuView gMenuView = new GuestMenuView(database,ID);
+				
 				makeReservationPage.dispose();
-
+				}
 			}
 		});
 

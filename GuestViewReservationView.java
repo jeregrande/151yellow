@@ -30,7 +30,7 @@ public class GuestViewReservationView {
 		JTextArea reservedRoom = new JTextArea();
 		reservedRoom.setEditable(false);
 		reservedRoom.setSize(600,400);
-		reservedRoom.setText("Reserved room(s) will br displayed here");
+		reservedRoom.setText("Reserved room(s) will be displayed here");
 		
 		JButton viewButton = new JButton();
 		viewButton.setText("View Reservations");
@@ -65,7 +65,7 @@ public class GuestViewReservationView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Delete Selected");
-				
+				GuestCancelView deleteView = new GuestCancelView(database, ID);
 				guestViewPage.dispose();
 			}
 		});

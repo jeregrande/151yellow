@@ -29,7 +29,6 @@ public class Database {
 				int roomNumber = r.getRoomNumber() + 1;
 				String startDate = r.getStartDate();
 				String endDate = r.getEndDate();
-				
 				records.add("Username: " + r.getUsername() + " | Room Number: " + roomNumber + " | Check In Date: " + startDate + " | Check Out Date: " + endDate);
 			}
 		}
@@ -41,7 +40,12 @@ public class Database {
 		return records;
 	}
 	
-	public void saveReserverationRecord(int accountID,int roomID ) {
+	public void deleteReservation(int targetValue)
+	{
+		reservationRecords.remove(targetValue);
+	}
+	
+	public void saveReservationRecord(int accountID,int roomID ) {
 		ReservationRecord reserved = new ReservationRecord(accounts.get(accountID),rooms.get(roomID) );
 		reservationRecords.add(reserved);
 	}
