@@ -56,6 +56,11 @@ public class GuestMakeReservation2View {
 							database.addRooms(newRoom);
 						}
 					}
+					else {
+						JOptionPane.showMessageDialog(new JFrame(), "Room Number Selected Is Not\n Available Within Date Chosen", "Dialog", JOptionPane.ERROR_MESSAGE);
+						makeReservationPage.dispose();
+						build();
+					}
 				}
 
 				GuestMenuView gMenuView = new GuestMenuView(database);

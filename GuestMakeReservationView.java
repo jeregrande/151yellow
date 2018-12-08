@@ -4,13 +4,14 @@ import java.awt.TextArea;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import javax.swing.*;
 
 public class GuestMakeReservationView {
 	private Database database;
 	private JTextArea textArea;
-
+	
 	public GuestMakeReservationView(Database database) {
 		this.database = database;
 		build();
@@ -71,26 +72,23 @@ public class GuestMakeReservationView {
 				String inputEndDate = endDateField.getText();
 
 				try {
-					JList<Integer> displayRooms = new JList<>(
-							database.checkRoom(inputStartDate, inputEndDate).toArray(new Integer[0]));
-					// JScrollPane scrollPane = new JScrollPane(displayRooms);
-					// panel.add(scrollPane);
-					// makeReservationPage.getContentPane().add(scrollPane);
-
-					textArea.setText("");
-					String newText = "";
-					ArrayList<Integer> roomNumbers = new ArrayList<Integer>();
-					for (int i : database.checkRoom(inputStartDate, inputEndDate)) {
-						roomNumbers.add(i);
+					if(database.correctStartDate(inputStartDate)==true && database.correctEndDate(inputStartDate, inputEndDate)==true) {
+						textArea.setText(" ");
+						String newText = " ";
+						ArrayList<Integer> roomNumbers = new ArrayList<Integer>();
+						for(int i:database.checkRoom(inputStartDate, inputEndDate)) {
+							roomNumbers.add(i);
+						}
+						for(int i: roomNumbers) {
+							newText += i + "\n";
+						}
+						textArea.setText("Please Remember The Room Number You Would Like!\nRooms 1-10 are Premium($300)\nRooms11-20 are Standard($100)"+ "\n" +newText);
 					}
-					for (int i : roomNumbers) {
-						newText += i + "\n";
+					else if(database.correctStartDate(inputStartDate)==false || database.correctEndDate(inputStartDate, inputEndDate)==false) {
+						JOptionPane.showMessageDialog(new JFrame(), "Start Date Must Be From Today Onwards\nEnd Date Must Be From Day After Start Date Up To 60 Days!!", "Dialog", JOptionPane.ERROR_MESSAGE);
+						makeReservationPage.dispose();
+						build();
 					}
-
-					textArea.setText(
-							"Please Remember The Room Number You Would Like! Rooms 1-10 are Premium($300) and Rooms 11-20 are Standard($100) "
-									+ "\n" + newText);
-
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -98,7 +96,7 @@ public class GuestMakeReservationView {
 
 			}
 		});
-
+		
 		panel.add(startDateLabel);
 		panel.add(startDateField);
 		panel.add(endDateLabel);

@@ -1,4 +1,4 @@
-package management;
+package hotelReservationSystem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -115,7 +115,6 @@ public class Database {
 		return -1;
 	}
 	
-	
 	public void addRooms(Room r) {
 		rooms.add(r);
 	}
@@ -141,4 +140,29 @@ public class Database {
 		}
 		return openRooms;
 	}			
+
+	public boolean correctStartDate(String inputStartDate) throws ParseException {
+		Date today = new Date();
+		Calendar cal = new GregorianCalendar(today.getYear(), today.getMonth(),today.getDate());
+		Date inputDate = dateFormat.parse(inputStartDate);
+		Calendar inputCal = new GregorianCalendar(inputDate.getYear(), inputDate.getMonth(), inputDate.getDate());
+		if( inputCal.equals(cal) || inputCal.after(cal))
+		{
+			return true;
+		}
+		System.out.println("today's date is " + today + " inputDate is " + inputDate +" Result is " + inputCal.equals(cal) + " " + inputCal.before(cal));
+		return false;
+	}
+	
+	public boolean correctEndDate(String inputStartDate, String inputEndDate) throws ParseException{
+		Date startDate = dateFormat.parse(inputStartDate);
+		Date endDate = dateFormat.parse(inputEndDate);
+		Calendar calS = new GregorianCalendar(startDate.getYear(), startDate.getMonth(), startDate.getDate());
+		Calendar calE = new GregorianCalendar(endDate.getYear(), endDate.getMonth(), endDate.getDate()); 
+		if(endDate.after(startDate) && startDate.compareTo(endDate) <= 60) {
+			return true;
+		}
+		
+		return false;
+	}
 }
