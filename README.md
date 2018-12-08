@@ -14,4 +14,4 @@ Notes:
 Known Issues:  
 -->Signup does not account for blank fields  
 -->Make reservations does not account for blank dates  
--->Show reservations for guest/manager-room-view cannot handle room 20
+-->Making a reservation in room 10 saves as room 9
