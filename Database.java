@@ -12,6 +12,8 @@ public class Database {
 	
 	private ArrayList<Account>accounts;
 	private ArrayList<Room>rooms;
+	private ArrayList<ReservationRecord> reservationRecords;
+	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	public Database() {
 		accounts = new ArrayList<Account>();
@@ -164,5 +166,53 @@ public class Database {
 		}
 		
 		return false;
+	}
+	
+		// For view-by-room info
+	public ArrayList<String> getRoomReservations(int roomNumber) {
+		
+		
+		//Test values for the view-by-room controller. Delete when MakeReservations can create ReservationRecords.
+		Account testUser = new Account("TestUser", "TestPassword", "FirstNameTest", "LastNameTest");
+		Account testUser2 = new Account("TestUser2", "TestPassword", "FirstNameTest", "LastNameTest");
+		Room testRoom = new Room(1, 0, "12/01/2018", "12/05/2018");
+		Room testRoom2 = new Room(1, 0, "12/10/2018", "12/15/2018");
+		Room testRoom3 = new Room(5, 0, "12/20/2018", "12/25/2019");
+		Room testRoom4 = new Room(1, 0, "01/01/2019", "01/05/2019");
+		Room testRoom5 = new Room(1, 0, "01/10/2018", "01/15/2019");
+		ReservationRecord testReservation = new ReservationRecord(testUser, testRoom);
+		ReservationRecord testReservation2 = new ReservationRecord(testUser, testRoom2);
+		ReservationRecord testReservation3 = new ReservationRecord(testUser, testRoom3);
+		ReservationRecord testReservation4 = new ReservationRecord(testUser2, testRoom4);
+		ReservationRecord testReservation5 = new ReservationRecord(testUser2, testRoom5);
+		ArrayList<ReservationRecord> reservationRecords = new ArrayList<ReservationRecord>();
+		reservationRecords.add(testReservation);
+		reservationRecords.add(testReservation2);
+		reservationRecords.add(testReservation3);
+		reservationRecords.add(testReservation4);
+		reservationRecords.add(testReservation5);
+		//End of test values
+		
+		ArrayList<String> records = new ArrayList<String>();
+		
+		// Find all reservations of the given room number
+		for (ReservationRecord r : reservationRecords) {
+			if (r.getRoomNumber() == roomNumber) {
+				String username = r.getUsername();
+				String startDate = r.getStartDate();
+				String endDate = r.getEndDate();
+				
+				// Convert the reservation details to a string and add to records
+				records.add("Username: " + username + " - Room Number: " + roomNumber + ", " + startDate + " to " + endDate);
+			}
+		}
+
+		// Return the reservations as an array list
+		if (records.size() == 0) {
+			records.add("No reservations for room " + roomNumber);
+			return records;
+		} else {
+			return records;
+		}
 	}
 }
