@@ -14,5 +14,4 @@ Notes:
 Known Issues:  
 -->Signup does not account for blank fields  
 -->Make reservations does not account for blank dates  
--->During make reservation, room select does not account for out-of-bounds rooms (>20 or <1)  
--->During make reservation, select room is available whether or not guest has inputted a date  
+-->Show reservations for guest/manager-room-view cannot handle room 20
