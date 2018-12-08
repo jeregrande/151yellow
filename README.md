@@ -10,6 +10,7 @@ TODO:
 Notes:  
 -->The StartupView has been refractored to HotelSystemDriver  
 -->After we finish, we'll have to delete the main method from ALL view classes (besides HotelSystemDriver)  
+-->Check package statements (should be hotelReservationSystem)
 
 Known Issues:  
 -->Signup does not account for blank fields  
