@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.awt.GridLayout;
 
 import javax.swing.*;
 
@@ -25,7 +26,7 @@ public class GuestMakeReservationView {
 
 		makeReservationPage.setSize(600, 450);
 		panel.setSize(600, 450);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setLayout(new GridLayout(4, 2));
 
 		JTextField startDateField = new JTextField();
 		JTextField endDateField = new JTextField();
@@ -84,7 +85,7 @@ public class GuestMakeReservationView {
 							roomNumbers.add(i);
 						}
 						for(int i: roomNumbers) {
-							newText += i + "\n";
+							newText += i + ", ";
 						}
 						textArea.setText("Please Remember The Room Number You Would Like!\nRooms 1-10 are Premium($300)\nRooms11-20 are Standard($100)"+ "\n" +newText);
 						selectRoom.setEnabled(true);
