@@ -1,10 +1,8 @@
 # 151yellow
 TODO:  
 -->Load & save database functionality  
--->Manager view page controllers  
--->Guest make reservations  
+-->Manager view page controllers   
 -->Guest show receipt after making reservation  
--->Guest delete reservations  
   
 Notes:  
 -->The StartupView has been refractored to HotelSystemDriver  
@@ -14,4 +12,4 @@ Notes:
 Known Issues:  
 -->Signup does not account for blank fields  
 -->Make reservations does not account for blank dates  
--->Making a reservation in room 10 saves as room 9  
+-->Sometime a reservation room will be -1 (EX: Making a reservation in room 10 saves as room 9)  
