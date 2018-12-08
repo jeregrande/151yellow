@@ -7,9 +7,8 @@ import javax.swing.*;
 public class ManagerLoginView {
 
 	private Database database;
-	static Manager theManager = new Manager("mUser", "mPass");
-	static String managerUser = theManager.getUsername();
-	static String managerPass = theManager.getPassword();
+	static String managerUser = "mUser";
+	static String managerPass = "mPass";
 
 	public ManagerLoginView(Database database) {
 		this.database = database;
