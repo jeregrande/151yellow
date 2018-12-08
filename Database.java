@@ -200,29 +200,27 @@ public class Database {
 		return false;
 	}
 	
-		// For view-by-room info
+	// For view-by-room info
 	public ArrayList<String> getRoomReservations(int roomNumber) {
-		
-		
-		
-		
+		roomNumber--;
 		ArrayList<String> records = new ArrayList<String>();
-		
+
 		// Find all reservations of the given room number
 		for (ReservationRecord r : reservationRecords) {
 			if (r.getRoomNumber() == roomNumber) {
 				String username = r.getUsername();
 				String startDate = r.getStartDate();
 				String endDate = r.getEndDate();
-				
+
 				// Convert the reservation details to a string and add to records
-				records.add("Username: " + username + " - Room Number: " + roomNumber + ", " + startDate + " to " + endDate);
+				records.add("Username: " + username + " - Room Number: " + (roomNumber + 1) + ", " + startDate + " to "
+						+ endDate);
 			}
 		}
 
 		// Return the reservations as an array list
 		if (records.size() == 0) {
-			records.add("No reservations for room " + roomNumber);
+			records.add("No reservations for room " + (roomNumber + 1));
 			return records;
 		} else {
 			return records;
