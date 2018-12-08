@@ -6,9 +6,11 @@ import javax.swing.*;
 public class GuestMenuView {
 
 	private Database database;
+	private int ID;
 
-	public GuestMenuView(Database database) {
+	public GuestMenuView(Database database, int accountID) {
 		this.database = database;
+		this.ID = accountID;
 		build();
 	}
 
@@ -25,7 +27,7 @@ public class GuestMenuView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Make clicked.");
-				GuestMakeReservationView reserveView = new GuestMakeReservationView(database);
+				GuestMakeReservationView reserveView = new GuestMakeReservationView(database,ID);
 				guestMenuPage.dispose();
 			}
 		});
@@ -36,6 +38,8 @@ public class GuestMenuView {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("View clicked.");
+				GuestViewReservationView checkView = new GuestViewReservationView(database, ID);
+				guestMenuPage.dispose();
 			}
 		});
 
@@ -76,7 +80,8 @@ public class GuestMenuView {
 
 	public static void main(String[] args) {
 		Database database = new Database();
-		GuestMenuView view = new GuestMenuView(database);
+		int i = 1;
+		GuestMenuView view = new GuestMenuView(database, i);
 	}
 
 }

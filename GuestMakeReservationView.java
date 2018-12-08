@@ -11,9 +11,11 @@ import javax.swing.*;
 public class GuestMakeReservationView {
 	private Database database;
 	private JTextArea textArea;
+	private int ID;
 	
-	public GuestMakeReservationView(Database database) {
+	public GuestMakeReservationView(Database database, int accountID) {
 		this.database = database;
+		this.ID = accountID;
 		build();
 	}
 
@@ -50,7 +52,7 @@ public class GuestMakeReservationView {
 				String inputEndDate = endDateField.getText();
 				try {
 					GuestMakeReservation2View selectRoom = new GuestMakeReservation2View(database,
-							database.checkRoom(inputStartDate, inputEndDate), inputStartDate, inputEndDate);
+							database.checkRoom(inputStartDate, inputEndDate), inputStartDate, inputEndDate,ID);
 					makeReservationPage.dispose();
 
 				} catch (ParseException e1) {
@@ -114,7 +116,8 @@ public class GuestMakeReservationView {
 
 	public static void main(String[] args) {
 		Database database = new Database();
-		GuestMakeReservationView view = new GuestMakeReservationView(database);
+		int i = 1;
+		GuestMakeReservationView view = new GuestMakeReservationView(database,i);
 	}
 
 }

@@ -13,12 +13,15 @@ public class GuestMakeReservation2View {
 	private List<Integer> open;
 	private String startDate;
 	private String endDate;
-
-	public GuestMakeReservation2View(Database database, List<Integer> a, String start, String end) {
+	private int ID;
+	private boolean error = true;
+	
+	public GuestMakeReservation2View(Database database, List<Integer> a, String start, String end,int accountID) {
 		this.database = database;
 		this.open = a;
 		this.startDate = start;
 		this.endDate = end;
+		this.ID = accountID;
 		build();
 	}
 
@@ -48,22 +51,22 @@ public class GuestMakeReservation2View {
 					if (open.get(i).equals(inputRoomNumber)) {
 						if (i >= 1 && i <= 10) {
 							Room newRoom = new Room(i, 0, startDate, endDate);
-							database.addRooms(newRoom);
-							System.out.println(database.getAccounts());
-							System.out.println(database.getRooms());
+							int j = database.addRooms(newRoom);
+							database.saveReserverationRecord(ID , j);
+							error = false;
 						} else {
 							Room newRoom = new Room(i, 1, startDate, endDate);
 							database.addRooms(newRoom);
+							error = false;
 						}
 					}
-					else {
+				}
+				if(error == true) {
 						JOptionPane.showMessageDialog(new JFrame(), "Room Number Selected Is Not\n Available Within Date Chosen", "Dialog", JOptionPane.ERROR_MESSAGE);
 						makeReservationPage.dispose();
 						build();
-					}
 				}
-
-				GuestMenuView gMenuView = new GuestMenuView(database);
+				GuestMenuView gMenuView = new GuestMenuView(database,ID);
 				makeReservationPage.dispose();
 
 			}
@@ -81,12 +84,5 @@ public class GuestMakeReservation2View {
 		makeReservationPage.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Database database = new Database();
-		ArrayList<Integer> array = new ArrayList<>();
-		String string1 = new String();
-		String string2 = new String();
-		GuestMakeReservation2View view = new GuestMakeReservation2View(database, array, string1, string2);
-	}
 
 }

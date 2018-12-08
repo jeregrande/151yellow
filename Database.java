@@ -18,6 +18,32 @@ public class Database {
 	public Database() {
 		accounts = new ArrayList<Account>();
 		rooms = new ArrayList<Room>();
+		reservationRecords = new ArrayList<ReservationRecord>();
+	}
+	
+	public ArrayList<String> getGuestReserverationRecord(int accountID) {
+		ArrayList<String> records = new ArrayList<String>();
+		
+		for(ReservationRecord r: reservationRecords) {
+			if(r.getUsername().equals(accounts.get(accountID).getUsername())) {
+				int roomNumber = r.getRoomNumber();
+				String startDate = r.getStartDate();
+				String endDate = r.getEndDate();
+				
+				records.add("Username: " + r.getUsername() + " | Room Number: " + roomNumber + " | Check In Date: " + startDate + " | Check Out Date: " + endDate);
+			}
+		}
+		if(records.size() == 0)
+		{
+			records.add("Username: " + accounts.get(accountID).getUsername() + " has no reservation(s)!");
+			return records;
+		}
+		return records;
+	}
+	
+	public void saveReserverationRecord(int accountID,int roomID ) {
+		ReservationRecord reserved = new ReservationRecord(accounts.get(accountID),rooms.get(roomID) );
+		reservationRecords.add(reserved);
 	}
 	
 	public String getAccounts(){
@@ -44,20 +70,20 @@ public class Database {
 		return false;
 	}
 	
-	public boolean checkLogin(String u, String p) {
+	public int checkLogin(String u, String p) {
 		for(int i = 0; i < accounts.size() ; i++) {
 			if(accounts.get(i).getUsername().equals(u))
 			{
 				if(accounts.get(i).getPassword().equals(p))
 				{
-					return true;
+					return i;
 				}
 				else {
-					return false;
+					return -1;
 				}
 			}
 		}
-		return false;
+		return -1;
 	}
 	
 	public ArrayList<Room> getRooms() {
@@ -117,8 +143,10 @@ public class Database {
 		return -1;
 	}
 	
-	public void addRooms(Room r) {
+	public int addRooms(Room r) {
 		rooms.add(r);
+		int lastAdded = rooms.size();
+		return lastAdded;
 	}
 	
 	public java.util.List<Integer> checkRoom(String startDate, String endDate) throws ParseException {
@@ -172,26 +200,7 @@ public class Database {
 	public ArrayList<String> getRoomReservations(int roomNumber) {
 		
 		
-		//Test values for the view-by-room controller. Delete when MakeReservations can create ReservationRecords.
-		Account testUser = new Account("TestUser", "TestPassword", "FirstNameTest", "LastNameTest");
-		Account testUser2 = new Account("TestUser2", "TestPassword", "FirstNameTest", "LastNameTest");
-		Room testRoom = new Room(1, 0, "12/01/2018", "12/05/2018");
-		Room testRoom2 = new Room(1, 0, "12/10/2018", "12/15/2018");
-		Room testRoom3 = new Room(5, 0, "12/20/2018", "12/25/2019");
-		Room testRoom4 = new Room(1, 0, "01/01/2019", "01/05/2019");
-		Room testRoom5 = new Room(1, 0, "01/10/2018", "01/15/2019");
-		ReservationRecord testReservation = new ReservationRecord(testUser, testRoom);
-		ReservationRecord testReservation2 = new ReservationRecord(testUser, testRoom2);
-		ReservationRecord testReservation3 = new ReservationRecord(testUser, testRoom3);
-		ReservationRecord testReservation4 = new ReservationRecord(testUser2, testRoom4);
-		ReservationRecord testReservation5 = new ReservationRecord(testUser2, testRoom5);
-		ArrayList<ReservationRecord> reservationRecords = new ArrayList<ReservationRecord>();
-		reservationRecords.add(testReservation);
-		reservationRecords.add(testReservation2);
-		reservationRecords.add(testReservation3);
-		reservationRecords.add(testReservation4);
-		reservationRecords.add(testReservation5);
-		//End of test values
+		
 		
 		ArrayList<String> records = new ArrayList<String>();
 		

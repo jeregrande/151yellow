@@ -42,14 +42,15 @@ public class GuestLoginView {
 				String inputUsername = guestUserField.getText();
 				String inputPass = guestPassField.getText();
 
-				if (database.checkLogin(inputUsername, inputPass) == true) {
-					GuestMenuView gMenuView = new GuestMenuView(database);
-					loginPage.dispose();
-				} else {
+				if (database.checkLogin(inputUsername, inputPass) == -1) {
 					JOptionPane.showMessageDialog(new JFrame(), "Invalid login credentials. Try again.", "Dialog",
 							JOptionPane.ERROR_MESSAGE);
 					loginPage.dispose();
 					build();
+				} else {
+					int accountID = database.checkLogin(inputUsername, inputPass);
+					GuestMenuView gMenuView = new GuestMenuView(database,accountID);
+					loginPage.dispose();
 				}
 			}
 		});
