@@ -1,7 +1,5 @@
 package management;
 
-import java.awt.List;
-import java.io.FilterInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,15 +7,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
-
-import javax.xml.transform.Templates;
 
 public class Database {
 	
 	private ArrayList<Account>accounts;
 	private ArrayList<Room>rooms;
-	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	public Database() {
 		accounts = new ArrayList<Account>();
 		rooms = new ArrayList<Room>();
@@ -30,7 +25,6 @@ public class Database {
 		 }
 		}
 			return "no accounts";
-		
 	}
 	
 	public void addAccounts(Account a) {
@@ -69,10 +63,10 @@ public class Database {
 	}
 	
 	public int compareDay(String inputDate, String currentDate) throws ParseException{
-		Date sDate = new SimpleDateFormat("MMddyyyy").parse(inputDate );
-		Date eDate = new SimpleDateFormat("MMddyyyy").parse(currentDate);
-		Calendar calS = new GregorianCalendar(sDate.getYear(), sDate.getMonth(), sDate.getDay());
-		Calendar calE = new GregorianCalendar(eDate.getYear(), eDate.getMonth(), eDate.getDay());
+		Date sDate = dateFormat.parse(inputDate);
+		Date eDate = dateFormat.parse(currentDate);
+		Calendar calS = new GregorianCalendar(sDate.getYear(), sDate.getMonth(), sDate.getDate());
+		Calendar calE = new GregorianCalendar(eDate.getYear(), eDate.getMonth(), eDate.getDate());
 		boolean compare = calS.equals(calE);
 		if(compare == true) {
 			return 1;
@@ -80,11 +74,11 @@ public class Database {
 		return -1;
 	}
 	
-	public int compareBeforeDay(String inputStartDate, String currentEndDate) throws ParseException{
-		Date sDate = new SimpleDateFormat("MMddyyyy").parse(inputStartDate );
-		Date eDate = new SimpleDateFormat("MMddyyyy").parse(currentEndDate);
-		Calendar calS = new GregorianCalendar(sDate.getYear(), sDate.getMonth(), sDate.getDay());
-		Calendar calE = new GregorianCalendar(eDate.getYear(), eDate.getMonth(), eDate.getDay());
+	public int compareBeforeDay(String inputDate, String currentDate) throws ParseException{
+		Date sDate = dateFormat.parse(inputDate);
+		Date eDate = dateFormat.parse(currentDate);
+		Calendar calS = new GregorianCalendar(sDate.getYear(), sDate.getMonth(), sDate.getDate());
+		Calendar calE = new GregorianCalendar(eDate.getYear(), eDate.getMonth(), eDate.getDate());
 		boolean compare = calS.before(calE);
 		if(compare == true) {
 			return 1;
@@ -92,11 +86,11 @@ public class Database {
 		return -1;
 	}
 	
-	public int compareAfterDay(String inputStartDate, String currentStartDate) throws ParseException{
-		Date sDate = new SimpleDateFormat("MMddyyyy").parse(inputStartDate );
-		Date eDate = new SimpleDateFormat("MMddyyyy").parse(currentStartDate);
-		Calendar calS = new GregorianCalendar(sDate.getYear(), sDate.getMonth(), sDate.getDay());
-		Calendar calE = new GregorianCalendar(eDate.getYear(), eDate.getMonth(), eDate.getDay());
+	public int compareAfterDay(String inputDate, String currentDate) throws ParseException{
+		Date sDate = dateFormat.parse(inputDate);
+		Date eDate = dateFormat.parse(currentDate);
+		Calendar calS = new GregorianCalendar(sDate.getYear(), sDate.getMonth(), sDate.getDate());
+		Calendar calE = new GregorianCalendar(eDate.getYear(), eDate.getMonth(), eDate.getDate());
 		boolean compare = calS.after(calE);
 		if(compare == true)
 		{
@@ -104,6 +98,23 @@ public class Database {
 		}
 		return -1;
 	}
+	
+	public int isBetween(String inputDate, String currentStartDate, String currentEndDate) throws ParseException{
+		Date theDate = dateFormat.parse(inputDate);
+		Date startDate = dateFormat.parse(currentStartDate);
+		Date endDate = dateFormat.parse(currentEndDate);
+		Calendar cal = new GregorianCalendar(theDate.getYear(), theDate.getMonth(), theDate.getDate());
+		Calendar calS = new GregorianCalendar(startDate.getYear(), startDate.getMonth(), startDate.getDate());
+		Calendar calE = new GregorianCalendar(endDate.getYear(), endDate.getMonth(), endDate.getDate());		
+		boolean after = cal.after(calS);
+		boolean before = cal.before(calE);
+		if(after == true && before == true)
+		{
+			return 1;
+		}
+		return -1;
+	}
+	
 	
 	public void addRooms(Room r) {
 		rooms.add(r);
@@ -118,13 +129,14 @@ public class Database {
 			String currentEndDate = rooms.get(i).getEndDate();
 			int roomNumber = rooms.get(i).getRoomNumber();
 			
-			if(compareDay(startDate, currentStartDate)== 1 || compareDay(endDate, currentStartDate)==1 || compareDay(endDate, currentEndDate)==1) {
+			if(compareDay(startDate, currentStartDate)==1||compareDay(startDate, currentEndDate)==1||
+					compareDay(endDate, currentStartDate)==1||compareDay(endDate, currentEndDate)==1) {
 				openRooms.remove(roomNumber);
 			}
-			else if((compareAfterDay(startDate, currentStartDate) ==1 && compareBeforeDay(startDate, currentEndDate) ==1) || 
-					(compareAfterDay(endDate, currentStartDate) ==1 && compareBeforeDay(endDate, currentEndDate) ==1)||
-					(compareAfterDay(endDate, currentEndDate)==1 && compareBeforeDay(startDate, currentEndDate)==1)) {
-				openRooms.remove(roomNumber); 	
+			else if((compareBeforeDay(startDate, currentStartDate)==1 && isBetween(endDate, currentStartDate, currentEndDate)==1)
+					|| (isBetween(startDate, currentStartDate, currentEndDate)==1)
+					||(compareBeforeDay(startDate, currentStartDate)==1 && compareAfterDay(endDate, currentStartDate)==1)) {
+				openRooms.remove(roomNumber);
 			}
 		}
 		return openRooms;
