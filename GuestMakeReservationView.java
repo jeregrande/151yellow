@@ -64,6 +64,8 @@ public class GuestMakeReservationView {
 			}
 		});
 
+		selectRoom.setEnabled(false);
+		
 		JButton displayButton = new JButton();
 		displayButton.setText("Display Avaiable Rooms");
 		displayButton.addActionListener(new ActionListener() {
@@ -85,6 +87,7 @@ public class GuestMakeReservationView {
 							newText += i + "\n";
 						}
 						textArea.setText("Please Remember The Room Number You Would Like!\nRooms 1-10 are Premium($300)\nRooms11-20 are Standard($100)"+ "\n" +newText);
+						selectRoom.setEnabled(true);
 					}
 					else if(database.correctStartDate(inputStartDate)==false || database.correctEndDate(inputStartDate, inputEndDate)==false) {
 						JOptionPane.showMessageDialog(new JFrame(), "Start Date Must Be From Today Onwards\nEnd Date Must Be From Day After Start Date Up To 60 Days!!", "Dialog", JOptionPane.ERROR_MESSAGE);

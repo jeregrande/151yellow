@@ -34,10 +34,15 @@ public class GuestMakeReservation2View {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
 		JTextField selectRoomField = new JTextField();
-
-		JLabel selectRoomLabel = new JLabel();
-		selectRoomLabel.setText("Room Number 1- 20. 1 - 10 are Premium ($300) and 11-20 are Standard ($100)");
-		selectRoomLabel.setBounds(10, 10, 100, 100);
+		
+		JTextArea openRoom = new JTextArea();
+		openRoom.setEditable(false);
+		openRoom.setSize(600,400);
+		String newText = " ";
+		for(int i: open) {
+			newText += i + "\n";
+		}
+		openRoom.setText("Available Rooms" + "\n" + "1-10 are Premium($300)" + "\n" + "11-20 are Standard($100) " +"\n" + "------ENTER ROOM NUMBER THEN CLICK CONFIRM------------->" +"\n" + newText );
 
 		JButton confirmButton = new JButton();
 		confirmButton.setText("Confirm");
@@ -51,12 +56,13 @@ public class GuestMakeReservation2View {
 					if (open.get(i).equals(inputRoomNumber)) {
 						if (i >= 1 && i <= 10) {
 							Room newRoom = new Room(i, 0, startDate, endDate);
-							int j = database.addRooms(newRoom);
-							database.saveReserverationRecord(ID , j);
+							int roomIndex = database.addRooms(newRoom);
+							database.saveReserverationRecord(ID , roomIndex);
 							error = false;
 						} else {
 							Room newRoom = new Room(i, 1, startDate, endDate);
-							database.addRooms(newRoom);
+							int roomIndex = database.addRooms(newRoom);
+							database.saveReserverationRecord(ID, roomIndex);
 							error = false;
 						}
 					}
@@ -72,7 +78,8 @@ public class GuestMakeReservation2View {
 			}
 		});
 
-		panel.add(selectRoomLabel);
+		
+		panel.add(openRoom);
 		panel.add(selectRoomField);
 		panel.add(confirmButton);
 

@@ -26,7 +26,7 @@ public class Database {
 		
 		for(ReservationRecord r: reservationRecords) {
 			if(r.getUsername().equals(accounts.get(accountID).getUsername())) {
-				int roomNumber = r.getRoomNumber();
+				int roomNumber = r.getRoomNumber() + 1;
 				String startDate = r.getStartDate();
 				String endDate = r.getEndDate();
 				
@@ -145,7 +145,7 @@ public class Database {
 	
 	public int addRooms(Room r) {
 		rooms.add(r);
-		int lastAdded = rooms.size();
+		int lastAdded = rooms.size() - 1;
 		return lastAdded;
 	}
 	
