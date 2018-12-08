@@ -6,8 +6,6 @@ public class ReservationRecord {
 	private String startDate;
 	private String endDate;
 
-	
-	
 	public ReservationRecord(Account a, Room r) {
 		this.username = a.getUsername();
 		this.roomNumber = r.getRoomNumber();
