@@ -4,7 +4,7 @@ TODO:
 -->Manager view page controllers  
 -->Guest make reservations  
 ----->Make sure guests can't select room before choosing a date  
------>Make sure guests can't select a room that isn't available on that date  
+----->Create a textarea and display available rooms in GuestMakeReservations2
 ----->Create a reservation record upon making a reservation
 -->Guest view reservations  
 
