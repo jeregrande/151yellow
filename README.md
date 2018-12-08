@@ -3,7 +3,6 @@ TODO:
 -->Load & save database functionality  
 -->Manager view page controllers  
 -->Guest make reservations  
------>Make sure guests can't select room before choosing a date  
 -->Guest show receipt after making reservation  
 -->Guest delete reservations  
 
