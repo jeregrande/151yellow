@@ -67,6 +67,7 @@ public class ManagerMenuView {
 				System.out.println("Quit clicked.");
 				System.out.println("--System Terminated--");
 				managerMenuPage.dispose();
+				System.exit(0);
 			}
 		});
 
