@@ -66,8 +66,9 @@ public class GuestSignupView {
 					signupPage.dispose();
 					build();
 				}
+				else {
 
-				else if (inputPass.equals(inputPassC)) {
+				if (inputPass.equals(inputPassC)) {
 					Account a = new Account(inputUsername, inputPass, inputFirst, inputLast);
 					database.addAccounts(a);
 					JOptionPane.showMessageDialog(new JFrame(), "Account Created!", "Dialog",
@@ -82,6 +83,7 @@ public class GuestSignupView {
 					build();
 				}
 
+			}
 			}
 		});
 

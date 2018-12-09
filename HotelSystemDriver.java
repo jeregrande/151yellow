@@ -1,5 +1,6 @@
 package hotelReservationSystem;
 
+import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -20,7 +21,8 @@ public class HotelSystemDriver {
 
 		JButton guestLoginButton = new JButton();
 		guestLoginButton.setText("Guest");
-
+		panel.setLayout(new GridLayout(1, 1));
+		
 		// Guest button controller
 		guestLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -49,9 +51,9 @@ public class HotelSystemDriver {
 		panel.add(managerLoginButton);
 
 		startupPage.getContentPane().add(panel);
-		startupPage.setSize(500, 500);
+		startupPage.setSize(300, 100);
 		startupPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		startupPage.pack();
+		//startupPage.pack();
 		startupPage.setVisible(true);
 	}
 

@@ -10,8 +10,6 @@ public class Room {
 	private int type;
 	private String startDate;
 	private String endDate;
-	private final int Premium = 300;
-	private final int Standard = 100;
 
 	public Room(int r, int t, String s, String e) {
 		this.roomNumber = r;

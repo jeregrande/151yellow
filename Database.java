@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 public class Database {
 	
@@ -19,6 +20,17 @@ public class Database {
 		accounts = new ArrayList<Account>();
 		rooms = new ArrayList<Room>();
 		reservationRecords = new ArrayList<ReservationRecord>();
+	}
+	
+	
+	public ArrayList<ReservationRecord> getGuestRecord (int accountID){
+		ArrayList<ReservationRecord> records = new ArrayList<ReservationRecord>();
+		for(int i=0; i<reservationRecords.size();i++) {
+			if(reservationRecords.get(i).getUsername().equals(accounts.get(accountID).getUsername())) {
+				records.add(reservationRecords.get(i));
+			}
+		}
+		return records;
 	}
 	
 	public ArrayList<String> getGuestReserverationRecord(int accountID) {
@@ -50,13 +62,10 @@ public class Database {
 		reservationRecords.add(reserved);
 	}
 	
-	public String getAccounts(){
-		if(accounts.size() != 0){
-		for(Account a: accounts) {
-			return a.getUsername();
-		 }
-		}
-			return "no accounts";
+	public String getLastAddedReservation(int accountID){
+		return accounts.get(accountID).getUsername() + "\n" +  "Room Number: " + reservationRecords.get(reservationRecords.size()-1).getRoomNumber() +
+				" | Check In Date: " + reservationRecords.get(reservationRecords.size()-1).getStartDate() + " | Check Out Date: " + 
+				reservationRecords.get(reservationRecords.size()-1).getEndDate();
 	}
 	
 	public void addAccounts(Account a) {
@@ -200,30 +209,82 @@ public class Database {
 		return false;
 	}
 	
-	// For view-by-room info
+		// For view-by-room info
 	public ArrayList<String> getRoomReservations(int roomNumber) {
-		roomNumber--;
+		
+		
+		
+		
 		ArrayList<String> records = new ArrayList<String>();
-
+		
 		// Find all reservations of the given room number
 		for (ReservationRecord r : reservationRecords) {
 			if (r.getRoomNumber() == roomNumber) {
 				String username = r.getUsername();
 				String startDate = r.getStartDate();
 				String endDate = r.getEndDate();
-
+				
 				// Convert the reservation details to a string and add to records
-				records.add("Username: " + username + " - Room Number: " + (roomNumber + 1) + ", " + startDate + " to "
-						+ endDate);
+				records.add("Username: " + username + " - Room Number: " + roomNumber + ", " + startDate + " to " + endDate);
 			}
 		}
 
 		// Return the reservations as an array list
 		if (records.size() == 0) {
-			records.add("No reservations for room " + (roomNumber + 1));
+			records.add("No reservations for room " + roomNumber);
 			return records;
 		} else {
 			return records;
+		}
+	}
+	
+	public long getTotalDays(String start, String end) throws ParseException{
+		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(start);
+		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(end);
+		long difference = eDate.getTime() - sDate.getTime();
+		return TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+	}
+	
+	public double getTotalCost(int accountID) throws ParseException{
+		ArrayList<ReservationRecord> rec = new ArrayList<ReservationRecord>();
+		for(int i=0; i<reservationRecords.size();i++) {
+			if(reservationRecords.get(i).getUsername().equals(accounts.get(accountID).getUsername())) {
+				rec.add(reservationRecords.get(i));
+			}
+		}
+		double standard = 0;
+		double premium = 0;
+		double total = 0;
+		System.out.println(rec.size());
+		for(int i=0; i<rec.size(); i++) {
+			if(rec.get(i).getRoomNumber() >= 11 && rec.get(i).getRoomNumber() <=20) {
+				String startDate = rec.get(i).getStartDate();
+				String endDate = rec.get(i).getEndDate();
+				long days = getTotalDays(startDate, endDate);
+				
+				standard += (100 * days);
+			}
+			else {
+				String startDate = rec.get(i).getStartDate();
+				String endDate = rec.get(i).getEndDate();
+				long days = getTotalDays(startDate, endDate);
+				premium += (300 * days);
+			}
+		}
+		total = standard + premium;
+		return total;
+	}
+	
+	public ReservationRecord lastAdded (int accountID) {
+		return reservationRecords.get(reservationRecords.size() - 1);
+	}
+	
+	public double getSingleCost(int accountID) throws ParseException {
+		if(lastAdded(accountID).getRoomNumber() >= 11 && lastAdded(accountID).getRoomNumber() <=20) {
+			return 100 * getTotalDays(lastAdded(accountID).getStartDate(), lastAdded(accountID).getEndDate());
+		}
+		else {
+			return 300 * getTotalDays(lastAdded(accountID).getStartDate(), lastAdded(accountID).getEndDate());
 		}
 	}
 }

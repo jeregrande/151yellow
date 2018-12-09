@@ -1,5 +1,6 @@
 package hotelReservationSystem;
 
+import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class GuestCancelView {
 		JPanel panel = new JPanel();
 		
 		panel.setSize(1200, 900);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setLayout(new GridLayout(2, 2));
 //		For a vertical menu
 //		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		JTextField selectedReservation = new JTextField();
@@ -38,8 +39,10 @@ public class GuestCancelView {
 		reservedRoom.setSize(600,400);
 		ArrayList<String> bookedRoooms = database.getGuestReserverationRecord(ID);
 		String newText = " ";
+		int numberInArray = 0;
 		for(String s: bookedRoooms) {
-			newText += s + "\n";
+			newText +="#"+numberInArray +" : " + s + "\n";
+			numberInArray ++;
 		}
 		reservedRoom.setText("Reserved room(s) will be displayed here" + "\n" + "Input the number\nSTARTING FROM 0 (ZERO) AT THE TOP(STARTING RESERVATION)\nthat you wish cancel" + "\n" + "----ENTER NUMBER HERE------->"+ "\n" + newText);
 
@@ -54,8 +57,10 @@ public class GuestCancelView {
 				database.deleteReservation(selected);
 				ArrayList<String> updated = database.getGuestReserverationRecord(ID);
 				String updatedText = " ";
+				int arrayNumber =0;
 				for(String s: updated) {
-					updatedText += s + "\n";
+					updatedText +="#"+ arrayNumber + " " +  s + "\n";
+					arrayNumber ++;
 				}
 				reservedRoom.setText("Updated Reserved room(s) will be displayed here" + "\n" + "Input the number after the #\n that you wish cancel" + "\n" + "----ENTER NUMBER HERE------->"+ "\n" + updatedText);
 			}

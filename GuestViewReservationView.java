@@ -1,5 +1,6 @@
 package hotelReservationSystem;
 
+import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ public class GuestViewReservationView {
 
 //		For a vertical menu
 //		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new GridLayout(2, 2));
 		
 		JTextArea reservedRoom = new JTextArea();
 		reservedRoom.setEditable(false);
@@ -69,17 +71,17 @@ public class GuestViewReservationView {
 				guestViewPage.dispose();
 			}
 		});
-		panel.add(reservedRoom);
 		panel.add(viewButton);
+		panel.add(reservedRoom);
 		panel.add(deleteButton);
 		panel.add(menuButton);
 
 		guestViewPage.getContentPane().add(panel);
 		
 
-		guestViewPage.setSize(500, 500);
+		guestViewPage.setSize(1100, 300);
 		guestViewPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		guestViewPage.pack();
+		//guestViewPage.pack();
 		guestViewPage.setVisible(true);
 	}
 

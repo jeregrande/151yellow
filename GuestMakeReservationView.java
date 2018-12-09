@@ -24,7 +24,6 @@ public class GuestMakeReservationView {
 		JFrame makeReservationPage = new JFrame();
 		JPanel panel = new JPanel();
 
-		makeReservationPage.setSize(600, 450);
 		panel.setSize(600, 450);
 		panel.setLayout(new GridLayout(4, 2));
 
@@ -87,7 +86,7 @@ public class GuestMakeReservationView {
 						for(int i: roomNumbers) {
 							newText += i + ", ";
 						}
-						textArea.setText("Please Remember The Room Number You Would Like!\nRooms 1-10 are Premium($300)\nRooms11-20 are Standard($100)"+ "\n" +newText);
+						textArea.setText("Rooms 1-10 are Premium($300)\nRooms11-20 are Standard($100)"+ "\n" +newText);
 						selectRoom.setEnabled(true);
 					}
 					else if(database.correctStartDate(inputStartDate)==false || database.correctEndDate(inputStartDate, inputEndDate)==false) {
@@ -112,9 +111,9 @@ public class GuestMakeReservationView {
 		panel.add(textArea);
 		makeReservationPage.getContentPane().add(panel);
 
-		makeReservationPage.setSize(500, 500);
+		makeReservationPage.setSize(685, 330);
 		makeReservationPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		makeReservationPage.pack();
+		//makeReservationPage.pack();
 		makeReservationPage.setVisible(true);
 	}
 
