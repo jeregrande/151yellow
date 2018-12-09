@@ -1,54 +1,52 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
-
+import java.util.concurrent.TimeUnit;
 
 public class Room {
-
-	private String roomNumber; 
-	private final int luxuriousRoom = 300;
-	private final int economicRoom = 100;
-	private int totalCost;
-	private Date startDate;
-	private Date endDate;
-	private int roomType;
-	private boolean isBooked = false;
+	private int roomNumber;
+	private int type;
+	private String startDate;
+	private String endDate;
+	private final int Premium = 300;
+	private final int Standard = 100;
 	
-	public Room(String roomNumber,Date startDate,  Date endDate, int roomType, boolean isBooked){
+	public Room(int r, int t, String s, String e)
+	{
+		this.roomNumber = r;
+		this.type = t;
+		this.startDate = s;
+		this.endDate = e;
+	}
+	
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+	public int getType() {
+		return type;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public long getTotalDays(String start, String end) throws ParseException {
+		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
+		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDate);
+		long difference = eDate.getTime() - sDate.getTime();
+		return TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+	}
+	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
+	}
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-		this.roomType = roomType;
-		this.isBooked = isBooked;
 	}
-	
-	public void bookRoom(){
-		isBooked = true;
-	}
-	
-	public void setRoomType(int value){
-		if(value ==0){
-			roomType = luxuriousRoom;
-		}
-		else{
-			roomType = economicRoom;
-		}
-	}
-	
-	public void printRmNumber(ReservationRecord room){
-		roomNumber = String.valueOf(room.getRoomNumber());
-		System.out.println("Your reserved room number is: " + roomNumber);
-	}
-	
-	public double getTotalCost(ReservationRecord userReservation){
-		
-		if(userReservation.getRoomNumber() >= 1 && userReservation.getRoomNumber() <=10){
-			totalCost = (int) (luxuriousRoom * ReservationRecord.getTotalDays(startDate, endDate));
-		}
-		else if(userReservation.getRoomNumber() >= 11 && userReservation.getRoomNumber() <=20){
-			totalCost = (int) (economicRoom * ReservationRecord.getTotalDays(startDate, endDate));
-		}
-		
-		return totalCost;
-	}
-	
 }

@@ -1,161 +1,68 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-/**
- *  Each reservation record knows who made this reservation, which room is assigned, 
- *  and the period of the reservation
- * @author sanford
- *
- */
-public class ReservationRecord{
-
-	private String firstName;
-	private String lastName;
+public class ReservationRecord {
+	private String username;
 	private int roomNumber;
 	private String startDate;
 	private String endDate;
-	private int roomType;
 	
-	//private double numberOfNights;
-	//private int nextID = 0;
+	private int totalCost;
+	private final int luxuriousRoom = 300;
+	private final int economicRoom = 100;
 	
+	public ReservationRecord(Account a, Room r) {
+		this.username = a.getUsername();
+		this.roomNumber = r.getRoomNumber();
+		this.startDate = r.getStartDate();
+		this.endDate = r.getEndDate();
+	}
 
-	
-	public ReservationRecord(String firstName, String lastName, int roomNumber, String startDate, String endDate, int roomType){
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.roomNumber = roomNumber;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.roomType = roomType;
+	public String getUsername() {
+		return username;
 	}
-	
-	public void setFirstName(String firstName){
-		this.firstName = firstName;
-	}
-	
-	public void setLastName(String lastName){
-		this.lastName = lastName;
-	}
-	
-	public String getFirstName(){
-		return firstName;
-	}
-	
-	public String getLastName(){
-		return lastName;
-	}
-	
-	public void setReservationPeriod(String startDate, String endDate){
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
-	
 
-//	public void dateConversion(){
-//		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-//		Date startDay = null;
-//		try{
-//			Date startingDay = format.parse(startDate);
-//			
-//			Date endingDay = format.parse(endDate);
-//			long difference = 
-//			
-//			//double totalDays = endingDay - startingDay;
-//		}catch (ParseException e){
-//			
-//		}
-//		
-//		int startValue;
-//		
-//		
-//	}
-	public static long getTotalDays(Date startDate, Date endDate){
-		long difference = endDate.getTime() - startDate.getTime();
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public long getTotalDays(String start, String end) throws ParseException{
+		Date sDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
+		Date eDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDate);
+		long difference = eDate.getTime() - sDate.getTime();
 		return TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
 	}
 	
-	public String getReservationPeriod(){
-		return startDate + ": " + endDate;
+	public double getTotalCost(ReservationRecord user) throws ParseException{
+		
+		if(user.getRoomNumber() >=1 && user.getRoomNumber() <=10){
+			totalCost = (int) (luxuriousRoom * user.getTotalDays(user.getStartDate(), user.getEndDate()));
+		}else if(user.getRoomNumber() >=11 && user.getRoomNumber() <= 20){
+			totalCost = (int) (economicRoom *user.getTotalDays(user.getStartDate(), user.getEndDate()));
+		}
+		else{
+			System.out.println("Cost is wrong");
+		}
+		return totalCost;
 	}
 	
-	public void setRoomNumber(int roomNumber){
-		this.roomNumber = roomNumber;
-	}
-	
-	public int getRoomNumber(){
-		return roomNumber;
-	}
-	public String toString(){
-		return ("Reservation Creator " + firstName + lastName + "Period of Reservation from " + startDate + "to end date " + endDate + "For room number " + roomNumber);
-	}
-	
-	public String print(){
-		return this.toString();
+	public void displayReceipt(Account a, Room r) throws ParseException{
+		ReservationRecord record = new ReservationRecord(a,r);
+		
+		System.out.println("You have booked room number: " + record.getRoomNumber() + "Your state date is:  " + record.getStartDate()
+		+"You end date is : " + record.getEndDate() + "And the total cost of stay is: " + record.getTotalCost(record) + "Days staying: "
+		+record.getTotalDays(startDate, endDate));
+		
 	}
 
-	
-//	public void uploadRerservations(String fileName){
-//		
-//		try(BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))){
-//			int numOfReservations = numberOfReservations(fileName);
-//			
-//			assignments = reArrangeReservations(assignments.length + numOfReservations);
-//			
-//			String hasLine = null;
-//			while ((hasLine = br.readLine()) != null) {
-//				String[] reservationDetail = hasLine.split(" ");
-//				
-//				String firstName = reservationDetail[1];
-//				String lastName = reservationDetail[2];
-//				
-//				int nightsStaying = Integer.parseInt(reservationDetail[3]);
-//				double rate = Double.parseDouble(reservationDetail[4]);
-//				assignments[nextID++] = new ReservationRecord(firstName,lastName,nightsStaying,rate);
-//			}
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		
-//	}
-//	
-//	//change names
-//	private ReservationSystem[] reArrangeReservations(int length) {
-//		ReservationSystem[] newReservation = new ReservationSystem[length+1];
-//		for (int i=0; i< assignments.length; i++){
-//			newReservation[i] = assignments[i];
-//		}
-//		return null;
-//	}
-//
-//	private int numberOfReservations(String fileName){
-//		int numOfReservations = 0;
-//		try(BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))){
-//			String hasLine = null;
-//			while ((hasLine = br.readLine()) != null) {
-//				numOfReservations++;
-//			}
-//		}
-//		catch(FileNotFoundException e){
-//			e.printStackTrace();
-//		}
-//		catch(IOException e){
-//			e.printStackTrace();
-//		}	
-//		return numOfReservations;
-//	}
 }
