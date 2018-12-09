@@ -62,6 +62,7 @@ public class GuestMenuView {
 				System.out.println("Quit clicked.");
 				System.out.println("--System Terminated--");
 				guestMenuPage.dispose();
+				System.exit(0);
 			}
 		});
 
