@@ -381,5 +381,37 @@ public class Database {
 			}
 		}
 	}
+	
+	//For view-by-day info
+	public List<Integer> getAvailableRooms(String date) throws ParseException {
+		List<Integer> openRooms = new ArrayList<Integer>(
+				Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20));
+
+		for (int i = 0; i < reservationRecords.size(); i++) {
+			if (compareDay(date, reservationRecords.get(i).getStartDate()) == 1
+					|| compareDay(date, reservationRecords.get(i).getEndDate()) == 1 || isBetween(date,
+							reservationRecords.get(i).getStartDate(), reservationRecords.get(i).getEndDate()) == 1) {
+				openRooms.remove(reservationRecords.get(i).getRoomNumber());
+			}
+		}
+		return openRooms;
+	}
+
+	public ArrayList<ReservationRecord> getReservedRooms(String date) throws ParseException {
+		ArrayList<ReservationRecord> bookedRooms = new ArrayList<ReservationRecord>();
+		for (int i = 0; i < reservationRecords.size(); i++) {
+			if (compareDay(date, reservationRecords.get(i).getStartDate()) == 1
+					|| compareDay(date, reservationRecords.get(i).getEndDate()) == 1 || isBetween(date,
+							reservationRecords.get(i).getStartDate(), reservationRecords.get(i).getEndDate()) == 1) {
+				String username = reservationRecords.get(i).getUsername();
+				int roomNumber = reservationRecords.get(i).getRoomNumber();
+				String startDate = reservationRecords.get(i).getStartDate();
+				String endDate = reservationRecords.get(i).getEndDate();
+				ReservationRecord booked = new ReservationRecord(username, roomNumber, startDate, endDate);
+				bookedRooms.add(booked);
+			}
+		}
+		return bookedRooms;
+	}
 
 }
