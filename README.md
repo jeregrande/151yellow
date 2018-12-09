@@ -1,8 +1,7 @@
 # 151yellow
 TODO:  
 -->Load & save database functionality  
--->Manager view page controllers   
--->Guest show receipt after making reservation  
+-->Manager view page controllers     
   
 Notes:  
 -->The StartupView has been refractored to HotelSystemDriver  
