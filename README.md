@@ -4,6 +4,7 @@ Notes:
 -->Package statements were removed during submission  
   
 Known Issues:  
+-->JavaDoc was only created for each class  
 -->Signup does not account for blank fields  
 -->Make reservations does not account for blank dates  
 -->Room numbers are decremented by 1 in manager view  
