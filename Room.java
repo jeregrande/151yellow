@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class contains all the information for the room.
+ */
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

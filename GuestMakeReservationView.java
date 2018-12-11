@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class allows a guest to select a date for a reservation
+ */
 import java.awt.TextArea;
 import java.awt.event.*;
 import java.text.ParseException;
@@ -117,10 +120,5 @@ public class GuestMakeReservationView {
 		makeReservationPage.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Database database = new Database();
-		int i = 1;
-		GuestMakeReservationView view = new GuestMakeReservationView(database,i);
-	}
 
 }

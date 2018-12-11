@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class displays the main menu option for guests
+ */
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -77,12 +80,6 @@ public class GuestMenuView {
 		guestMenuPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guestMenuPage.pack();
 		guestMenuPage.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Database database = new Database();
-		int i = 1;
-		GuestMenuView view = new GuestMenuView(database, i);
 	}
 
 }

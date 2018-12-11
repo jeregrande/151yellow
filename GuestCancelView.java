@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * Guest Cancel View class is the view page for guest reservation cancellation
+ */
 import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
@@ -90,11 +93,5 @@ public class GuestCancelView {
 		guestCancelPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guestCancelPage.pack();
 		guestCancelPage.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Database database = new Database();
-		int i = 0;
-		GuestCancelView view = new GuestCancelView(database, i);
 	}
 }

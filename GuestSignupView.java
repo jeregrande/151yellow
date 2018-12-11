@@ -3,7 +3,11 @@ package hotelReservationSystem;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.GridLayout;
-
+/**
+ * This class takes the param to create the guest accounts
+ * @author Jeremiah, Justin, sanford
+ *
+ */
 public class GuestSignupView {
 
 	private Database database;
@@ -106,11 +110,6 @@ public class GuestSignupView {
 		signupPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		signupPage.pack();
 		signupPage.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Database database = new Database();
-		GuestSignupView view = new GuestSignupView(database);
 	}
 
 }

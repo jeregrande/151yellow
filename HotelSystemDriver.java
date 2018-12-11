@@ -1,5 +1,9 @@
 package hotelReservationSystem;
 
+/**
+ * Main driver class for running the hotel system. 
+ * START HERE TO RUN THE PROGRAM
+ */
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;

@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class displays the menu for the manager 
+ */
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -25,6 +28,7 @@ public class ManagerMenuView {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Load clicked.");
 				// TODO: Load reservations from database.txt
+				database.load();
 			}
 		});
 
@@ -45,6 +49,7 @@ public class ManagerMenuView {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Save clicked.");
 				// TODO: Save reservations into database.txt
+				database.saveText();
 			}
 		});
 
@@ -67,6 +72,7 @@ public class ManagerMenuView {
 				System.out.println("Quit clicked.");
 				System.out.println("--System Terminated--");
 				managerMenuPage.dispose();
+				System.exit(0);
 			}
 		});
 
@@ -84,9 +90,5 @@ public class ManagerMenuView {
 		managerMenuPage.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Database database = new Database();
-		ManagerMenuView view = new ManagerMenuView(database);
-	}
 
 }

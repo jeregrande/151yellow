@@ -1,5 +1,9 @@
 package hotelReservationSystem;
 
+/**
+ * This class displays the login view for the manager. 
+ * Manager login info is printed to the console for testing
+ */
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
@@ -74,9 +78,5 @@ public class ManagerLoginView {
 		managerLoginPage.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Database database = new Database();
-		ManagerLoginView view = new ManagerLoginView(database);
-	}
 
 }

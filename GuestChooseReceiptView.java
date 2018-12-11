@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class is the view for allowing guest to choose what receipt they want
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -87,9 +90,4 @@ public class GuestChooseReceiptView {
 		GuestChooseReceiptViewPage.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Database database = new Database();
-		int i = 1;
-		GuestChooseReceiptView receiptView = new GuestChooseReceiptView(database, i);
-	}
 }

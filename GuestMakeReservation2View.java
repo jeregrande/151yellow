@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class allows the user to select a room number for a reservation
+ */
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.lang.reflect.Array;

@@ -1,5 +1,10 @@
 package hotelReservationSystem;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,8 +12,15 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Database class has all the data structure to store account rooms and reservation records
+ * Database class is the model which is passed between all views
+ * @author Jeremiah, Justin, Sanford
+ *
+ */
 public class Database {
 	
 	private ArrayList<Account>accounts;
@@ -287,4 +299,128 @@ public class Database {
 			return 300 * getTotalDays(lastAdded(accountID).getStartDate(), lastAdded(accountID).getEndDate());
 		}
 	}
+	public void saveText(){
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+		
+		try{
+			fw = new FileWriter("reservations.txt");
+			bw = new BufferedWriter(fw);
+			
+			for(Account a: accounts){
+				bw.write("1 "+ a.getUsername()+ " " + a.getPassword() + " " + a.getinputFName()+ " "+ a.getinputLName());
+			}
+			for(Room r: rooms){
+				bw.write("2 " + r.getRoomNumber() + " " + r.getType() + " " + r.getStartDate() + " " + r.getEndDate());
+			}
+			for(ReservationRecord rr: reservationRecords){
+				bw.write("3 " + rr.getUsername() + " " + rr.getRoomNumber() + " "+ rr.getStartDate() + " " + rr.getEndDate());
+			}		
+			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+			} 
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public void load(){
+		FileReader fr = null;
+		BufferedReader br = null;
+		boolean done = false;
+		
+		try{
+			fr = new FileReader("reservations.txt");
+			br = new BufferedReader(fr);
+			
+			ArrayList<Account> acc = new ArrayList<Account>();
+			ArrayList<Room> rm = new ArrayList<Room>();
+			ArrayList<ReservationRecord> reserve = new ArrayList<ReservationRecord> ();
+			
+			String currentLine;
+			while(!done){
+				currentLine = br.readLine();
+				if(currentLine ==null){
+					done = true;
+				}
+				else{
+					for(Account a: accounts){
+						System.out.println("Username: " + a.getUsername()+ " Password: " + a.getPassword() +" First Name: " + a.getinputFName()+ " Last Name: "+ a.getinputLName());
+						acc.add(a);
+					}
+					for(Room r: rooms){
+						System.out.println("Room Number: " + r.getRoomNumber() + " Rm Type: " + r.getType() + " Start Date: " + r.getStartDate() + " End Date: " + r.getEndDate());
+						rm.add(r);
+					}
+					for(ReservationRecord rr : reservationRecords){
+						System.out.println("Username: " + rr.getUsername() + " Room Number#:  " + rr.getRoomNumber() + " Start Date: " + rr.getStartDate() + " End Date: " + rr.getEndDate());
+						reserve.add(rr);
+					}
+				}
+			}
+		}catch (IOException e) {
+
+			e.printStackTrace();
+
+		} 
+		finally {
+
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} 
+			catch (IOException ex) {
+
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	//For view-by-day info
+	public List<Integer> getAvailableRooms(String date) throws ParseException {
+		List<Integer> openRooms = new ArrayList<Integer>(
+				Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20));
+
+		for (int i = 0; i < reservationRecords.size(); i++) {
+			if (compareDay(date, reservationRecords.get(i).getStartDate()) == 1
+					|| compareDay(date, reservationRecords.get(i).getEndDate()) == 1 || isBetween(date,
+							reservationRecords.get(i).getStartDate(), reservationRecords.get(i).getEndDate()) == 1) {
+				openRooms.remove(reservationRecords.get(i).getRoomNumber());
+			}
+		}
+		return openRooms;
+	}
+
+	public ArrayList<ReservationRecord> getReservedRooms(String date) throws ParseException {
+		ArrayList<ReservationRecord> bookedRooms = new ArrayList<ReservationRecord>();
+		for (int i = 0; i < reservationRecords.size(); i++) {
+			if (compareDay(date, reservationRecords.get(i).getStartDate()) == 1
+					|| compareDay(date, reservationRecords.get(i).getEndDate()) == 1 || isBetween(date,
+							reservationRecords.get(i).getStartDate(), reservationRecords.get(i).getEndDate()) == 1) {
+				String username = reservationRecords.get(i).getUsername();
+				int roomNumber = reservationRecords.get(i).getRoomNumber();
+				String startDate = reservationRecords.get(i).getStartDate();
+				String endDate = reservationRecords.get(i).getEndDate();
+				ReservationRecord booked = new ReservationRecord(username, roomNumber, startDate, endDate);
+				bookedRooms.add(booked);
+			}
+		}
+		return bookedRooms;
+	}
+
 }

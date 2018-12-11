@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * Guest Complex Receipt View is the class that will display the complex receipt of the reservation for the guest 
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;

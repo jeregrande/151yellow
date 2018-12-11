@@ -1,5 +1,9 @@
 package hotelReservationSystem;
 
+/**
+ * Guess login view is the page which Guest see when login in
+ * this pass passes the current account ID to all corresponding pages to keep track of who is logged in 
+ */
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.GridLayout;

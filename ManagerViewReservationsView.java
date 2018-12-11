@@ -1,3 +1,5 @@
+package hotelReservationSystem;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
@@ -7,7 +9,11 @@ import java.time.YearMonth;
 
 import javax.swing.*;
 import java.util.*;
-
+/**
+ * This class allows the Manager to view reservation info by day or by room
+ * @author sanford
+ *
+ */
 public class ManagerViewReservationsView {
 
 	private Database database; // THE MODEL
@@ -3272,11 +3278,6 @@ public class ManagerViewReservationsView {
 		managerViewReservationsPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		managerViewReservationsPage.pack();
 		managerViewReservationsPage.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Database database = new Database();
-		ManagerViewReservationsView view = new ManagerViewReservationsView(database);
 	}
 
 }

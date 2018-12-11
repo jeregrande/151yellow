@@ -2,7 +2,11 @@ package hotelReservationSystem;
 
 import java.awt.event.*;
 import javax.swing.*;
-
+/**
+ * This class allows the guest to either sign up or login
+ * @author Jeremiah, Justin, sanford
+ *
+ */
 public class GuestSignupLoginView {
 	private Database database;
 
@@ -46,11 +50,6 @@ public class GuestSignupLoginView {
 		signupLoginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		signupLoginPage.pack();
 		signupLoginPage.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Database database = new Database();
-		GuestSignupLoginView view = new GuestSignupLoginView(database);
 	}
 
 }

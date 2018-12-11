@@ -1,5 +1,10 @@
 package hotelReservationSystem;
 
+/**
+ * Account class stores all information about the Guest Accounts
+ * @author Jeremiah, Justin, Sanford 
+ *
+ */
 public class Account {
 	private String username;
 	private String password;

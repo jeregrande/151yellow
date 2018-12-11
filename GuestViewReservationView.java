@@ -1,5 +1,8 @@
 package hotelReservationSystem;
 
+/**
+ * This class displays the reservations the guest made and the guest may delete them.
+ */
 import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
@@ -85,9 +88,4 @@ public class GuestViewReservationView {
 		guestViewPage.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Database database = new Database();
-		int i = 1;
-		GuestViewReservationView view = new GuestViewReservationView(database, i);
-	}
 }
