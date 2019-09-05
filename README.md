@@ -1,5 +1,7 @@
 # 151yellow
 
+A rudimentary hotel reservation system with a GUI, created in java. Presents available features to the user based on their role (guest, admin) upon logging in.
+
 Notes:  
 -->Package statements were removed during submission  
   
